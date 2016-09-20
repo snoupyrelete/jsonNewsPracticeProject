@@ -84,15 +84,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+        self.view.addSubview(navBar);
+        let navItem = UINavigationItem(title: "Select Your Sources");
+        let doneItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: nil, action: #selector(buttonAction));
+        navItem.rightBarButtonItem = doneItem;
+        navBar.setItems([navItem], animated: true);
   
-        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
-        button.backgroundColor = .greenColor()
-        button.setTitle("Done", forState: .Normal)
-        button.addTarget(self, action: #selector(buttonAction), forControlEvents: .TouchUpInside)
-        
-        self.view.addSubview(button)
-        
+//        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+//        button.backgroundColor = .greenColor()
+//        button.setTitle("Done", forState: .Normal)
+//        button.addTarget(self, action: #selector(buttonAction), forControlEvents: .TouchUpInside)
+//        
+//        self.view.addSubview(button)
+//        
      
      
 
