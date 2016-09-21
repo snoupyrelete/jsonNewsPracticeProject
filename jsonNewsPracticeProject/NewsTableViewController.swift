@@ -10,9 +10,47 @@ import UIKit
 
 class NewsTableViewController: UITableViewController {
 
+    var titleArray = [String]()
+    var descriptionArray = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let urlStringInput: String = "https://newsapi.org/v1/articles?source=associated-press&sortBy=top&apiKey=ab8055c6a10b46e281e19b522c215120"
+        
+        // This url string will be typed into a text field to get info from a site.
+        // print("URL string input: \(urlStringInput)")
+        
+        if let nsurlStringInput = NSURL(string: urlStringInput) { // We have to convert to NSURL because contentsOfUrl takes NSURL as a paramater.
+            //print("NSURL string input: \(nsurlStringInput)")
+            
+            if let websiteNSData = try? NSData(contentsOfURL: nsurlStringInput, options: []) { // We have to convert it to NSData because swiftyJSON's type JSON uses NSData as a paramter.
+                //print("Website's NSDATA: \(websiteNSData)")
+                
+                let websiteJSONData = JSON(data: websiteNSData)
+                //print("Website JSON Data: \(websiteJSONData)")
+                
+                if let myTitle = websiteJSONData["articles"][0]["title"].string { // If I use newsapi.org I'll need to edit it for their formatting of their json
+                    //print("The 1st title is: \(myTitle)")
+                    titleArray.append(myTitle)
+                    
+                    if let myDescription = websiteJSONData["articles"][0]["description"].string {
+                        //print("The 1st decsription is: \(myDescription)")
+                        descriptionArray.append(myDescription)
+
+                    
+                    }
+                }
+                
+                //  if websiteJSONData["metadata"]["responseinfo"]["status"] == nil { // Check for a valid response code, could also check for "404" etc or if error != nil
+                // TODO: Need to edit this cause only the whitehouse.gov site uses the metadata,responseinfo,status code, so on many sites this won't work.
+                // We're ready to parse!
+                // with newsapi I can check status == "ok"
+                //print("Ready to parse!")
+            }
+        }
+
+     
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -29,23 +67,25 @@ class NewsTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 20
     }
 
-    /*
+   
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! TableViewNewsCell
 
-        // Configure the cell...
-
+        cell.textLabel!.text = titleArray[0]
+        cell.detailTextLabel!.text = descriptionArray[0]
+        cell.imageView!.image = UIImage(named: "bbcNews")
+        
         return cell
     }
-    */
+ 
 
     /*
     // Override to support conditional editing of the table view.

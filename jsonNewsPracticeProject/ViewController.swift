@@ -138,32 +138,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //TODO: HWS Names to Faces App for collection view help. (project 10)
         //TODO: ASSETS IMAGES SCALES AT DIFF SIZES 1x 2x 3x etc
         
-        let urlStringInput: String = "https://newsapi.org/v1/articles?source=associated-press&sortBy=top&apiKey=ab8055c6a10b46e281e19b522c215120"
-        
-        // This url string will be typed into a text field to get info from a site.
- // print("URL string input: \(urlStringInput)")
-        
-        if let nsurlStringInput = NSURL(string: urlStringInput) { // We have to convert to NSURL because contentsOfUrl takes NSURL as a paramater.
- //print("NSURL string input: \(nsurlStringInput)")
-           
-            if let websiteNSData = try? NSData(contentsOfURL: nsurlStringInput, options: []) { // We have to convert it to NSData because swiftyJSON's type JSON uses NSData as a paramter.
- //print("Website's NSDATA: \(websiteNSData)")
-                
-                let websiteJSONData = JSON(data: websiteNSData)
- //print("Website JSON Data: \(websiteJSONData)")
-           
-                if let myTitle = websiteJSONData["articles"][0]["title"].string { // If I use newsapi.org I'll need to edit it for their formatting of their json
- //print("The 1st title is: \(myTitle)")
-                }
-            
-              //  if websiteJSONData["metadata"]["responseinfo"]["status"] == nil { // Check for a valid response code, could also check for "404" etc or if error != nil
-                    // TODO: Need to edit this cause only the whitehouse.gov site uses the metadata,responseinfo,status code, so on many sites this won't work.
-                    // We're ready to parse!
-                // with newsapi I can check status == "ok"
- //print("Ready to parse!")
-            }
-        }
-    }
+           }
 
      override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
