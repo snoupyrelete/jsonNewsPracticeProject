@@ -9,7 +9,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="jsonNewsPracticeProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="partialCurl" modalPresentationStyle="pageSheet" id="BYZ-38-t0r" customClass="ViewController" customModule="jsonNewsPracticeProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -68,6 +68,7 @@
                             <constraint firstItem="Vfs-JZ-Xez" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="44" id="gma-d5-mU9"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="Vfs-JZ-Xez" id="nkb-2C-Lcf"/>
                         <segue destination="HAb-eF-URJ" kind="show" identifier="toTable" id="7CS-GZ-KMN"/>
@@ -108,7 +109,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="bbcNews" translatesAutoresizingMaskIntoConstraints="NO" id="Tga-7K-UDa">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tga-7K-UDa">
                                             <rect key="frame" x="540" y="13" width="40" height="40"/>
                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                         </imageView>
@@ -151,7 +152,4 @@
             <point key="canvasLocation" x="1086" y="117"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="bbcNews" width="300" height="168"/>
-    </resources>
 </document>
