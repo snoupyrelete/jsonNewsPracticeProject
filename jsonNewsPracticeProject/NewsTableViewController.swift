@@ -12,7 +12,7 @@ import Foundation
 
 class NewsTableViewController: UITableViewController
 {
-    var a = 1
+
 
     var selectedSources = [String]()
     var titleArray = [String]()
