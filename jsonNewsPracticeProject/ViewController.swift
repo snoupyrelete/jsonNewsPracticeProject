@@ -14,8 +14,8 @@ import CoreGraphics
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     
-   
-    let listOfNewsSources = ["arsTechnica","associatedPress","bbcNews","bbcSports","bild","bloomberg","buzzFeed", "cnbc","cnn","dailyMail","engadget","entertainmentWeekly","espn","espnCricInfo", "financialTimes", "focus", "foxSports", "googleNews", "hackerNews", "ign", "independent", "mashable", "metro", "mirror", "nationalGeographic", "newScientist", "nflNews", "polygon", "recode", "redditRALL", "reuters", "skyNews", "skySportsNews", "spiegelOnline", "talksport", "techCrunch", "techradar", "theGuardianUK", "theHindu", "theHuffingtonPost", "theNewYorkTimes", "theNextWeb", "theTelegraph", "theTimesOfIndia", "theVerge", "theWallStreetJournal", "theWashingtonPost", "time", "usaToday", "wiredDe"]
+   // TODO: get nessources and associated info and logo programatically.
+    let listOfNewsSources = ["ars-technica","associated-press","bbcNews","bbcSports","bild","bloomberg","buzzFeed", "cnbc","cnn","dailyMail","engadget","entertainmentWeekly","espn","espnCricInfo", "financialTimes", "focus", "foxSports", "googleNews", "hacker-news", "ign", "independent", "mashable", "metro", "mirror", "nationalGeographic", "newScientist", "nflNews", "polygon", "recode", "redditRALL", "reuters", "skyNews", "skySportsNews", "spiegelOnline", "talksport", "techCrunch", "techradar", "theGuardianUK", "theHindu", "theHuffingtonPost", "theNewYorkTimes", "theNextWeb", "theTelegraph", "theTimesOfIndia", "theVerge", "theWallStreetJournal", "theWashingtonPost", "time", "usaToday", "wiredDe"]
     var selectedSources = [String]()
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -72,11 +72,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
         
         return cell
-        
-    
-        
-      
-        
     }
     
 
@@ -84,12 +79,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
-        self.view.addSubview(navBar);
-        let navItem = UINavigationItem(title: "Select Your Sources");
-        let doneItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: nil, action: #selector(buttonAction));
-        navItem.rightBarButtonItem = doneItem;
-        navBar.setItems([navItem], animated: true);
+        navigationItem.title = "Subscriptions"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(buttonAction))
+        navigationItem.hidesBackButton = true
+        
+//        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+//        self.view.addSubview(navBar);
+//        let navItem = UINavigationItem(title: "Select Your Sources");
+//        let doneItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: nil, action: #selector(buttonAction));
+//        navItem.rightBarButtonItem = doneItem;
+//        navBar.setItems([navItem], animated: true);
+        
+        
   
 //        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
 //        button.backgroundColor = .greenColor()
@@ -145,13 +146,23 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         // Dispose of any resources that can be recreated.
     }
     
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toTable" {
+            print ("seg id is toTable")
+            if let destination = segue.destinationViewController as? NewsTableViewController {
+                destination.selectedSources = selectedSources
+            }
+        }
+    }
+    
     func buttonAction(sender: UIButton!) {
         print("Button tapped")
         performSegueWithIdentifier("toTable", sender: nil)
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = storyboard.instantiateViewControllerWithIdentifier("NewsTableViewController") as! UITableViewController
+//        self.navigationController!.pushViewController(vc, animated: true)
+//        print(vc)
     }
-    
-    
-
-
 }
 
