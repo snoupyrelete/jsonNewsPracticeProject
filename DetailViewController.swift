@@ -24,7 +24,31 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBarHidden = false
+        navigationController?.isNavigationBarHidden = false
+        print(object["image"])
+        
+        let imageString = object["image"]
+        
+        if imageString != nil  {
+            if let url: URL = URL(string: imageString!) {
+                if let data = try? Data(contentsOf: url) {
+                    let image = UIImage(data : data)
+                    detailArticleImage.image = image
+                } else {
+                    let image = UIImage(named: "imageNotFound")
+                    detailArticleImage.image = image
+                }
+            } 
+            // Need to center vertically
+            
+            //  let imageCenter = cell.frame.height / 2
+            
+            
+            //   cellImg.image = image
+     
+        }
+        
+
         
         //print("objects in dvc: \(objects)")
         
@@ -38,6 +62,7 @@ class DetailViewController: UIViewController {
         detailArticleDate.text = object["date"]
         detailArticleURL.text = object["url"]
 
+        //detailArticleImage.image = object["image"]
 
         // Do any additional setup after loading the view.
     }

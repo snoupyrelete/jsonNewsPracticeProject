@@ -8,54 +8,98 @@
 
 import UIKit
 import CoreGraphics
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     
+    let sources = myJSON()
    // TODO: get nessources and associated info and logo programatically.
-    let listOfNewsSources = ["ars-technica","associated-press","bbcNews","bbcSports","bild","bloomberg","buzzFeed", "cnbc","cnn","dailyMail","engadget","entertainmentWeekly","espn","espnCricInfo", "financialTimes", "focus", "foxSports", "googleNews", "hacker-news", "ign", "independent", "mashable", "metro", "mirror", "nationalGeographic", "newScientist", "nflNews", "polygon", "recode", "redditRALL", "reuters", "skyNews", "skySportsNews", "spiegelOnline", "talksport", "techCrunch", "techradar", "theGuardianUK", "theHindu", "theHuffingtonPost", "theNewYorkTimes", "theNextWeb", "theTelegraph", "theTimesOfIndia", "theVerge", "theWallStreetJournal", "theWashingtonPost", "time", "usaToday", "wiredDe"]
+//    let listOfNewsSources = ["ars-technica","associated-press","bbcNews","bbcSports","bild","bloomberg","buzzFeed", "cnbc","cnn","dailyMail","engadget","entertainmentWeekly","espn","espnCricInfo", "financialTimes", "focus", "foxSports", "googleNews", "hacker-news", "ign", "independent", "mashable", "metro", "mirror", "nationalGeographic", "newScientist", "nflNews", "polygon", "recode", "redditRALL", "reuters", "skyNews", "skySportsNews", "spiegelOnline", "talksport", "techCrunch", "techradar", "theGuardianUK", "theHindu", "theHuffingtonPost", "theNewYorkTimes", "theNextWeb", "theTelegraph", "theTimesOfIndia", "theVerge", "theWallStreetJournal", "theWashingtonPost", "time", "usaToday", "wiredDe"]
     var selectedSources = [String]()
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return listOfNewsSources.count
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return sources.objects.count
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)! as! NewsCell
-        cell.newsLogo.layer.borderColor = UIColor.redColor().CGColor
+        let cell = collectionView.cellForItem(at: indexPath)! as! NewsCell
+        cell.newsLogo.layer.borderColor = UIColor.red.cgColor
     
-        if collectionView.indexPathsForSelectedItems()?.count > 0 { // is this line necessary?
+        if collectionView.indexPathsForSelectedItems?.count > 0 { // is this line necessary?
             // print("IP : \(indexPath)")
-            let newSource = listOfNewsSources[indexPath.row]
+            let object = sources.objects[(indexPath as NSIndexPath).row]
+            
+            let newSource = object["id"]
           //  selectedSources.append("\(listOfNewsSources[indexPath])")
          //   print(String(listOfNewsSources[NSIndexPath]))
            // selectedSources.append(String(listOfNewsSources[NSIndexPath]))
-            selectedSources.append(newSource)
+            selectedSources.append(newSource!)
             print("Selected sources: \(selectedSources)")
         }
      
     }
     
     // Resets borderColor to its default, unselected state.
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)! as! NewsCell
-        cell.newsLogo.layer.borderColor = UIColor.yellowColor().CGColor
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)! as! NewsCell
+        cell.newsLogo.layer.borderColor = UIColor.yellow.cgColor
   
         
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
       
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("News Source", forIndexPath: indexPath) as! NewsCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "News Source", for: indexPath) as! NewsCell
         
-        let image = UIImage(named: listOfNewsSources[indexPath.row])
-        cell.newsLogo.image = image
+        let object = sources.objects[(indexPath as NSIndexPath).row]
         
-        let myLabel = listOfNewsSources[indexPath.row]
-        cell.newsName.text = myLabel
+        let imageString: String? = object["image"]
+        
+        print(imageString)
+        if imageString != nil  {
+            if let url: URL = URL(string: imageString!) {
+                if let data = try? Data(contentsOf: url) {
+                    let image = UIImage(data : data)
+                    cell.newsLogo.image = image
+                } else {
+                    let image = UIImage(named: "imageNotFound")
+                    cell.newsLogo.image = image
+                }
+            }
+ 
+        }
+        
+        //let image = UIImage(named: listOfNewsSources[indexPath.row])
+        
+        //cell.newsLogo.image = image
+        
+        cell.newsName.text = object["name"]
+        
+//        let myLabel = listOfNewsSources[indexPath.row]
+//        cell.newsName.text = myLabel
         
         //for index in 0...listOfNewsSources.count {
         //let cell.UILabel.newsName = listOfNewsSources[indexPath]
@@ -69,6 +113,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
       //  cell.newsLogo.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3).CGColor
         cell.newsLogo.layer.borderWidth = 5
         cell.newsLogo.layer.cornerRadius = cell.frame.size.width / 2
+        cell.newsLogo.clipsToBounds = false
 
         
         return cell
@@ -80,8 +125,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         super.viewDidLoad()
         
         navigationItem.title = "Subscriptions"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(buttonAction))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(buttonAction))
         navigationItem.hidesBackButton = true
+        
+        sources.objects = sources.parseData("https://newsapi.org/v1/sources?language=en")
+        print("sources.objects are \(sources.objects)")
+     
         
 //        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
 //        self.view.addSubview(navBar);
@@ -147,18 +196,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toTable" {
             print ("seg id is toTable")
-            if let destination = segue.destinationViewController as? NewsTableViewController {
+            if let destination = segue.destination as? NewsTableViewController {
                 destination.selectedSources = selectedSources
             }
         }
     }
     
-    func buttonAction(sender: UIButton!) {
+    func buttonAction(_ sender: UIButton!) {
         print("Button tapped")
-        performSegueWithIdentifier("toTable", sender: nil)
+        performSegue(withIdentifier: "toTable", sender: nil)
 //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //        let vc = storyboard.instantiateViewControllerWithIdentifier("NewsTableViewController") as! UITableViewController
 //        self.navigationController!.pushViewController(vc, animated: true)
