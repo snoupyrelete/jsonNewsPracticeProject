@@ -28,6 +28,9 @@ class DetailViewController: UIViewController {
     //}
     
     
+    @IBAction func switchToWeb(_ sender: AnyObject) {
+        performSegue(withIdentifier: "toWeb", sender: nil)
+    }
     
     
 //    func buttonAction(_ sender: UIButton!) {
@@ -42,7 +45,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        performSegue(withIdentifier: "toWeb", sender: nil)
+        
         navigationController?.isNavigationBarHidden = false
         print(object["image"])
         
