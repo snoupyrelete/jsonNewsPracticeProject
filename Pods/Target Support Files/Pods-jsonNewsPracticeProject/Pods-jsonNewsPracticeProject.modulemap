@@ -1,0 +1,6 @@
+framework module Pods_jsonNewsPracticeProject {
+  umbrella header "Pods-jsonNewsPracticeProject-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "29156087187AB7831C502DCF0FD4FC640261AA50",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "AB155F288063031139F6176F0B3F36896D504069" : 9223372036854775807,
+    "29156087187AB7831C502DCF0FD4FC640261AA50" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F74B538B-3FE1-41FA-AE1A-61AFDF107E6C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "AB155F288063031139F6176F0B3F36896D504069" : "jsonNewsApp%20v1.0\/jsonNewsPracticeProject.xcodeproj\/",
+    "29156087187AB7831C502DCF0FD4FC640261AA50" : "jsonNewsApp%20v1.0\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "jsonNewsPracticeProject",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "jsonNewsPracticeProject.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/snoupyrelete\/jsonNewsPracticeProject.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "29156087187AB7831C502DCF0FD4FC640261AA50"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/snoupyrelete\/jsonNewsPracticeProject.xcodeproj.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AB155F288063031139F6176F0B3F36896D504069"
+    }
+  ]
+}

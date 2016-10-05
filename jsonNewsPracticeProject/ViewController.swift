@@ -40,7 +40,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var selectedSources = [String]()
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("XYZ \(sources.objects)")
         return sources.objects.count
+
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -51,6 +53,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if collectionView.indexPathsForSelectedItems?.count > 0 { // is this line necessary?
             // print("IP : \(indexPath)")
             let object = sources.objects[(indexPath as NSIndexPath).row]
+            
             
             let newSource = object["id"]
           //  selectedSources.append("\(listOfNewsSources[indexPath])")
@@ -65,7 +68,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // Resets borderColor to its default, unselected state.
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)! as! NewsCell
-        cell.newsLogo.layer.borderColor = UIColor.yellow.cgColor
+        cell.newsLogo.layer.borderColor = UIColor.darkGray.cgColor
   
         
     }
@@ -76,21 +79,37 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         let object = sources.objects[(indexPath as NSIndexPath).row]
         
+       // print("object is \(object)")
         let imageString: String? = object["image"]
         
-        print(imageString)
-        if imageString != nil  {
-            if let url: URL = URL(string: imageString!) {
-                if let data = try? Data(contentsOf: url) {
-                    let image = UIImage(data : data)
-                    cell.newsLogo.image = image
-                } else {
-                    let image = UIImage(named: "imageNotFound")
-                    cell.newsLogo.image = image
-                }
-            }
- 
-        }
+        let imageView = cell.viewWithTag(1) as! UIImageView
+        
+    
+        imageView.sd_setImage(with: URL(string: imageString!))
+        
+//        DispatchQueue.global(qos: .background).async { [weak self]
+//            () -> Void in self?.sources.parseData("https://newsapi.org/v1/sources?language=en")
+//            // Background thread - netowrk
+//            
+//            DispatchQueue.main.async(execute: {
+//                // UI Updates - touch the ui
+//                self?.collectionView.reloadData()
+//            })
+//        }
+
+//        print(imageString)
+//        if imageString != nil  {
+//            if let url: URL = URL(string: imageString!) {
+//                if let data = try? Data(contentsOf: url) {
+//                    let image = UIImage(data : data)
+//                    cell.newsLogo.image = image
+//                } else {
+//                    let image = UIImage(named: "imageNotFound")
+//                    cell.newsLogo.image = image
+//                }
+//            }
+//        }
+    
         
         //let image = UIImage(named: listOfNewsSources[indexPath.row])
         
@@ -105,15 +124,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //let cell.UILabel.newsName = listOfNewsSources[indexPath]
         // {
         
-        cell.layer.cornerRadius = 50
-//        cell.clipsToBounds = true
-//        cell.newsLogo.layer.masksToBounds = true
         
+        // Circle views
+//        cell.layer.cornerRadius = 50
+//        cell.newsLogo.layer.borderWidth = 5
+//        cell.newsLogo.layer.cornerRadius = cell.frame.size.width / 2
+//        cell.newsLogo.clipsToBounds = false
         
-      //  cell.newsLogo.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3).CGColor
-        cell.newsLogo.layer.borderWidth = 5
-        cell.newsLogo.layer.cornerRadius = cell.frame.size.width / 2
-        cell.newsLogo.clipsToBounds = false
+        cell.layer.cornerRadius = 0
+        cell.newsLogo.layer.borderWidth = 2
+        cell.newsLogo.layer.cornerRadius = 0
+        cell.newsLogo.clipsToBounds = true
 
         
         return cell
@@ -124,12 +145,44 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         
+                //        DispatchQueue.global(qos: .background).async { [weak self]
+        //            () -> Void in self?.sources.parseData("https://newsapi.org/v1/sources?language=en")
+        //            // Background thread - netowrk
+        //
+        //            DispatchQueue.main.async(execute: {
+        //                // UI Updates - touch the ui
+        //                self?.collectionView.reloadData()
+        //            })
+        //        }
+        
+//        backgroundQueue.async {
+//            self.sources.objects = self.sources.parseData("https://newsapi.org/v1/sources?language=en")
+//            self.collectionView.reloadData()
+//            DispatchQueue.main.async (execute : {
+//                self.collectionView.reloadData()
+//            })
+//        }
+        
+//        DispatchQueue.global(qos: .userInitiated).async {
+//            print("This is run on the background queue abcdef")
+            self.sources.objects = self.sources.parseData("https://newsapi.org/v1/sources?language=en")
+            print(self.sources.objects)
+            
+            
+//            DispatchQueue.main.async {
+//                print("This is run on the main queue, after the previous code in outer block")
+//                self.collectionView.reloadData()
+//            }
+//        }
+        collectionView.reloadData()
+        //print (sources.objects)
+        
         navigationItem.title = "Subscriptions"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(buttonAction))
         navigationItem.hidesBackButton = true
         
-        sources.objects = sources.parseData("https://newsapi.org/v1/sources?language=en")
-        print("sources.objects are \(sources.objects)")
+        //sources.objects = sources.parseData("https://newsapi.org/v1/sources?language=en")
+        //print("sources.objects are \(sources.objects)")
      
         
 //        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
@@ -189,6 +242,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //TODO: ASSETS IMAGES SCALES AT DIFF SIZES 1x 2x 3x etc
         
            }
+
 
      override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

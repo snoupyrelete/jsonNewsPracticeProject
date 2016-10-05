@@ -67,10 +67,12 @@ class myJSON {
                 let image = source["urlsToLogos"]["large"].stringValue
                 let obj = ["id": id,"name": name, "description": description, "url": url, "category": category, "language": language , "country": country , "image": image]
                 objects.append(obj)
+            
             }
+                print("MARKER GCD: DONE")
         } else if inputURL.hasPrefix("https://boilerpipe-web.appspot.com/extract?"){
             print("it's an invalid url or it's from boilerpipe")
-            //print(json["response"].arrayValue)
+            print(json["response"].arrayValue)
             
        
                 let content = json["response"]["content"].stringValue

@@ -22,18 +22,11 @@ class NewsTableViewController: UITableViewController
     
     let articles = myJSON()
     
-//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        showArticle()
-//    }
-    
-
-   
-    
-    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-   
+        
+        navigationController!.isNavigationBarHidden = false
         
         for i in selectedSources
         {
@@ -45,9 +38,9 @@ class NewsTableViewController: UITableViewController
         }
         
         
-        DispatchQueue.main.async { [unowned self] in
-            self.tableView.reloadData()
-        }
+//        DispatchQueue.main.async { [unowned self] in
+//            self.tableView.reloadData()
+//        }
 
         
         // test for article url
@@ -56,7 +49,7 @@ class NewsTableViewController: UITableViewController
         //let ABC = xSources.parseData("https://newsapi.org/v1/sources?language=en")
         //test for boilerpipe url
                 print("sources in newsTable: \(selectedSources)")
-        navigationItem.hidesBackButton = true
+        navigationItem.hidesBackButton = false
 
         
         // I will concatanate the source after source= in the urlStringInput to make it usable in a loop
@@ -92,7 +85,7 @@ class NewsTableViewController: UITableViewController
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.isNavigationBarHidden = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -124,6 +117,7 @@ class NewsTableViewController: UITableViewController
 //        print("objects 1 in cellforrow\(objects)")
         let cellImg : UIImageView = UIImageView(frame: CGRect(x: 5, y: 5, width: 90, height: 90))
 
+        cellImg.tag = 2
         let object = articles.objects[(indexPath as NSIndexPath).row]
        // print("objecT: \(object)")
        
@@ -138,22 +132,22 @@ class NewsTableViewController: UITableViewController
         
         // **** problem with http instead of https! Could do AllowsArbitraryLoads but bad for secuirty reasons, some sources like Hacker News don't have specified urls for image hosting, whereas Associated press does, so it can be excused in the info.plist. (binaryapi.ap.org)
         let imageString: String? = object["image"]
-        //print ("object[\"image\"] is: \(object["image"])")
-//            if imageString == "" {
-//              //  cellImg.image = UIImagenamed
-//            }
-//        print("Image STRING \(imageString)")
 
-            if imageString != nil  {
-                if let url: URL = URL(string: imageString!) {
-                    if let data = try? Data(contentsOf: url) {
-                    let image = UIImage(data : data)
-                    cellImg.image = image
-                } else {
-                    let image = UIImage(named: "imageNotFound")
-                    cellImg.image = image
-                }
-                }
+        let imageView = cellImg.viewWithTag(2) as! UIImageView
+        
+        imageView.sd_setImage(with: URL(string: imageString!))
+        
+
+//            if imageString != nil  {
+//                if let url: URL = URL(string: imageString!) {
+//                    if let data = try? Data(contentsOf: url) {
+//                    let image = UIImage(data : data)
+//                    cellImg.image = image
+//                } else {
+//                    let image = UIImage(named: "imageNotFound")
+//                    cellImg.image = image
+//                }
+//                }
         // Need to center vertically
         
         //  let imageCenter = cell.frame.height / 2
@@ -165,7 +159,7 @@ class NewsTableViewController: UITableViewController
         cellImg.layer.cornerRadius = 10
         cellImg.clipsToBounds = true
         cell.addSubview(cellImg)
-                }
+             //   }
 
         return cell
     
