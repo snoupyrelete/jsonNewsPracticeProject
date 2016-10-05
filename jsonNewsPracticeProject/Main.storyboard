@@ -250,9 +250,9 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jxu-jO-P0h">
-                                                        <frame key="frameInset" minX="171" minY="8" width="46" height="30"/>
+                                                        <frame key="frameInset" minX="171" minY="8" width="45" height="45"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <state key="normal" title="Button"/>
+                                                        <state key="normal" backgroundImage="internetImage"/>
                                                         <connections>
                                                             <action selector="switchToWeb:" destination="iH7-m0-Hhl" eventType="touchUpInside" id="zuC-aF-GSA"/>
                                                         </connections>
@@ -313,9 +313,7 @@
                                 <frame key="frameInset" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XgJ-63-2pf">
-                                        <frame key="frameInset" minY="39" width="375" height="628"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XgJ-63-2pf">
                                         <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </webView>
                                 </subviews>
@@ -323,6 +321,12 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XgJ-63-2pf" firstAttribute="centerX" secondItem="58g-k1-Rpe" secondAttribute="centerX" id="Qti-4R-Pdo"/>
+                            <constraint firstItem="XgJ-63-2pf" firstAttribute="centerY" secondItem="58g-k1-Rpe" secondAttribute="centerY" id="YcY-RX-eHp"/>
+                            <constraint firstItem="XgJ-63-2pf" firstAttribute="height" secondItem="58g-k1-Rpe" secondAttribute="height" id="ow2-5M-dj7"/>
+                            <constraint firstItem="XgJ-63-2pf" firstAttribute="width" secondItem="58g-k1-Rpe" secondAttribute="width" id="zU1-jq-pA8"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="M7V-ht-QWB"/>
                     <connections>
@@ -335,6 +339,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="internetImage" width="1300" height="1300"/>
         <image name="testArticleImage" width="458" height="512"/>
     </resources>
 </document>
