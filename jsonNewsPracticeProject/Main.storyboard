@@ -324,6 +324,9 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="M7V-ht-QWB"/>
+                    <connections>
+                        <outlet property="articleWebView" destination="XgJ-63-2pf" id="I2L-7B-2fR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z68-mF-mYj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

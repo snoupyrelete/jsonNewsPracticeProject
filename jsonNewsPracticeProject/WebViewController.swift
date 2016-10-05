@@ -13,19 +13,13 @@ class WebViewController: UIViewController {
 
     var object = String()
     
-    @IBOutlet weak var WebView: UIWebView!
-    @IBOutlet weak var articleWebsite: UIWebView!
+    @IBOutlet weak var articleWebView: UIWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("ABC: \(object)")
-        
-//        let myUrl = NSURL(string: "https://google.com")
-//        let requestObj = URLRequest(url: myUrl as! URL)
-//        articleWebsite.loadRequest(requestObj)
-//        print(myUrl)
-        // Do any additional setup after loading the view.
+        let url = URL(string: object)
+        articleWebView.loadRequest(URLRequest(url: url!))
     }
     
         
