@@ -40,13 +40,11 @@ class WebViewController: UIViewController, WKUIDelegate {
     func shareTapped() {
         
         let sentFrom = "\n--Sent from Dylan's JSON News app."
-        let string = "adsadasdafsgadfghjfgdsfsgh"
-        let url = URL(string: object)
-        let test = NSString(string: object)
         //var sharingItems: [Any?] = [url, string, test]
         
         let vc = UIActivityViewController(activityItems: [webView.url!, sentFrom], applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        //vc.excludedActivityTypes = [UIActivityTypeReminder]
         present(vc, animated: true)
     }
     

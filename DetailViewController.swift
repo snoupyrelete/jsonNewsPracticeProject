@@ -28,9 +28,9 @@ class DetailViewController: UIViewController {
     //}
     
     
-    @IBAction func switchToWeb(_ sender: AnyObject) {
-        performSegue(withIdentifier: "toWeb", sender: nil)
-    }
+//    @IBAction func switchToWeb(_ sender: AnyObject) {
+//       
+//    }
     
     
 //    func buttonAction(_ sender: UIButton!) {
@@ -47,6 +47,10 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         navigationController?.isNavigationBarHidden = false
+       // navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(switchToWeb))
+        //Icon from icons8 - 32 png
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Domain"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(switchToWeb))
+
         print(object["image"])
         
         
@@ -108,6 +112,10 @@ class DetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    func switchToWeb() {
+        performSegue(withIdentifier: "toWeb", sender: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
