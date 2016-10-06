@@ -20,6 +20,22 @@ class WebViewController: UIViewController {
         
         let url = URL(string: object)
         articleWebView.loadRequest(URLRequest(url: url!))
+        
+        self.title = "Hello"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        
+        
+    }
+    
+    func shareTapped() {
+        
+        let string = "adsadasdafsgadfghjfgdsfsgh"
+        let url = NSURL(string: "https://www.google.com")
+        let test = NSString(string: object)
+        
+        let vc = UIActivityViewController(activityItems: [string, url], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
     
         
