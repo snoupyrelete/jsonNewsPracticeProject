@@ -13,8 +13,6 @@ class WebViewController: UIViewController, WKUIDelegate {
 
     var object = String()
     
-    @IBOutlet weak var articleWebView: UIWebView!
-    
     var webView: WKWebView!
     
     override func loadView() {
@@ -41,11 +39,13 @@ class WebViewController: UIViewController, WKUIDelegate {
     
     func shareTapped() {
         
+        let sentFrom = "\n--Sent from Dylan's JSON News app."
         let string = "adsadasdafsgadfghjfgdsfsgh"
-        let url = NSURL(string: "https://www.google.com")
+        let url = URL(string: object)
         let test = NSString(string: object)
+        //var sharingItems: [Any?] = [url, string, test]
         
-        let vc = UIActivityViewController(activityItems: [string, url], applicationActivities: [])
+        let vc = UIActivityViewController(activityItems: [webView.url!, sentFrom], applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(vc, animated: true)
     }
