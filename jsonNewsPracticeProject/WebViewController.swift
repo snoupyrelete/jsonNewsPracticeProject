@@ -7,19 +7,31 @@
 //
 
 import UIKit
-
-class WebViewController: UIViewController {
+import WebKit
+class WebViewController: UIViewController, WKUIDelegate {
 
 
     var object = String()
     
     @IBOutlet weak var articleWebView: UIWebView!
     
+    var webView: WKWebView!
+    
+    override func loadView() {
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        webView.uiDelegate = self
+        view = webView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = URL(string: object)
-        articleWebView.loadRequest(URLRequest(url: url!))
+//        let url = URL(string: object)
+//        articleWebView.loadRequest(URLRequest(url: url!))
+        let myURL = URL(string: object)
+        let myRequest = URLRequest(url: myURL!)
+        webView.load(myRequest)
         
         self.title = "Hello"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
