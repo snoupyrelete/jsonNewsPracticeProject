@@ -50,7 +50,8 @@ class DetailViewController: UIViewController {
        // navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(switchToWeb))
         //Icon from icons8 - 32 png
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Domain"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(switchToWeb))
-
+        navigationItem.backBarButtonItem?.image = #imageLiteral(resourceName: "Circled Left 2")
+//        navigationItem.backBarButtonItem?.
         print(object["image"])
         
         
@@ -157,6 +158,8 @@ class DetailViewController: UIViewController {
         }
             
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController!.isToolbarHidden = true
+    }
 
 }

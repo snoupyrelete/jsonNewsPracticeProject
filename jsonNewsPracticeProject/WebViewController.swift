@@ -8,7 +8,7 @@
 
 import UIKit
 import WebKit
-class WebViewController: UIViewController, WKUIDelegate {
+class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
 
 
     var object = String()
@@ -25,16 +25,30 @@ class WebViewController: UIViewController, WKUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+//        let toolbarItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "Domain"), style: UIBarButtonItemStyle.plain, target: self, action: nil), UIBarButtonItem(image: #imageLiteral(resourceName: "Domain"), style: UIBarButtonItemStyle.plain, target: self, action: nil)]
+        
+        navigationController!.isToolbarHidden = false
+        
+        navigationController!.toolbar.setItems(toolbarItems, animated: true)
 //        let url = URL(string: object)
 //        articleWebView.loadRequest(URLRequest(url: url!))
         let myURL = URL(string: object)
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
         
-        self.title = "Hello"
+        self.title = "Web View"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
         
         
+    }
+    
+    
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        self.title = "LOADING"
+    }
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        self.title = "DONE"
     }
     
     func shareTapped() {

@@ -144,6 +144,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController!.isToolbarHidden = true
         
                 //        DispatchQueue.global(qos: .background).async { [weak self]
         //            () -> Void in self?.sources.parseData("https://newsapi.org/v1/sources?language=en")
@@ -261,6 +262,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func buttonAction(_ sender: UIButton!) {
         print("Button tapped")
+        if selectedSources.count < 1 {
+            print("You must select atleast 1 source.")
+            let alert = UIAlertController(title: "Warning:", message: "Please subscribe to atleast 1 source.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
         performSegue(withIdentifier: "toTable", sender: nil)
 //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //        let vc = storyboard.instantiateViewControllerWithIdentifier("NewsTableViewController") as! UITableViewController

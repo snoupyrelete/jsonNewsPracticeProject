@@ -27,7 +27,7 @@ class NewsTableViewController: UITableViewController
         super.viewDidLoad()
         
         navigationController!.isNavigationBarHidden = false
-        
+       
         for i in selectedSources
         {
             
