@@ -143,7 +143,6 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="ynd-ac-cQQ"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="veq-Eh-tv7">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -232,7 +231,7 @@
                                                         <color key="textColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="testArticleImage" translatesAutoresizingMaskIntoConstraints="NO" id="h4v-OS-iQF">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="imageNotFound" translatesAutoresizingMaskIntoConstraints="NO" id="h4v-OS-iQF">
                                                         <frame key="frameInset" width="375" height="184"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="184" id="66o-YY-uJY"/>
@@ -352,6 +351,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z68-mF-mYj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationItem title="ReadView" id="ZmO-At-8Ew">
+                    <barButtonItem key="backBarButtonItem" title="Item" image="Literature" id="GtG-Da-Bi4"/>
+                </navigationItem>
             </objects>
             <point key="canvasLocation" x="4236" y="-778.56071964017997"/>
         </scene>
@@ -359,6 +361,7 @@
     <resources>
         <image name="Circled Chevron Left" width="32" height="32"/>
         <image name="Circled Chevron Right" width="32" height="32"/>
-        <image name="testArticleImage" width="458" height="512"/>
+        <image name="Literature" width="32" height="32"/>
+        <image name="imageNotFound" width="355" height="355"/>
     </resources>
 </document>

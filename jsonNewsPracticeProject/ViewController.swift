@@ -69,7 +69,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)! as! NewsCell
         cell.newsLogo.layer.borderColor = UIColor.darkGray.cgColor
-  
+        //TODO: Need to remove deselected item from selectedSources array.
+        print("ip \(indexPath.row)")
+        //selectedSources.remove(at: indexPath.row)
+        // if removed = index out of range!
         
     }
     
