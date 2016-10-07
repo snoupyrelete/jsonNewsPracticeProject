@@ -304,15 +304,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ph3-c7-Ib7" userLabel="Content View">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ph3-c7-Ib7" userLabel="Content View">
                                 <frame key="frameInset" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Znu-Vd-p7x">
+                                        <frame key="frameInset" minX="16" minY="270" width="359" height="2"/>
+                                        <color key="progressTintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="trackTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </progressView>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Znu-Vd-p7x" firstAttribute="centerY" secondItem="ph3-c7-Ib7" secondAttribute="centerY" constant="-62.5" id="H5b-0I-yNh"/>
+                                    <constraint firstItem="Znu-Vd-p7x" firstAttribute="leading" secondItem="ph3-c7-Ib7" secondAttribute="leading" constant="16" id="lJZ-SP-U9u"/>
+                                    <constraint firstItem="Znu-Vd-p7x" firstAttribute="width" secondItem="ph3-c7-Ib7" secondAttribute="width" constant="-16" id="ql8-Bj-Nnr"/>
+                                    <constraint firstItem="Znu-Vd-p7x" firstAttribute="centerX" secondItem="ph3-c7-Ib7" secondAttribute="centerX" constant="8" id="sBT-M2-dHr"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem image="Circled Chevron Left" style="plain" id="fZX-Np-FTI">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="backWithSender:" destination="7Oh-YR-Os7" id="m5s-qt-2kN"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="18b-53-5nH"/>
+                        <barButtonItem systemItem="refresh" id="ST6-5p-7ik">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="reloadWithSender:" destination="7Oh-YR-Os7" id="eTt-qc-PU4"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="5XO-6D-R3S"/>
+                        <barButtonItem image="Circled Chevron Right" id="RtY-Aj-N9U">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="forwardWithSender:" destination="7Oh-YR-Os7" id="54S-P5-cU8"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="M7V-ht-QWB"/>
+                    <connections>
+                        <outlet property="progressView" destination="Znu-Vd-p7x" id="BPE-N2-QXm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z68-mF-mYj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -320,6 +357,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Circled Chevron Left" width="32" height="32"/>
+        <image name="Circled Chevron Right" width="32" height="32"/>
         <image name="testArticleImage" width="458" height="512"/>
     </resources>
 </document>

@@ -15,6 +15,25 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     var webView: WKWebView!
     
+    @IBOutlet weak var progressView: UIProgressView!
+   
+    @IBAction func reload(sender: UIBarButtonItem) {
+        
+        webView.reload()
+        
+    }
+    
+    @IBAction func back(sender: UIBarButtonItem) {
+        
+        webView.goBack()
+        
+    }
+    @IBAction func forward(sender: UIBarButtonItem) {
+        
+        webView.goForward()
+        
+    }
+    
     override func loadView() {
         let webConfiguration = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
@@ -24,6 +43,11 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let progressView = UIProgressView(progressViewStyle: .default)
+        progressView.sizeToFit()
+        
+        WebViewController.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
         
         
 //        let toolbarItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "Domain"), style: UIBarButtonItemStyle.plain, target: self, action: nil), UIBarButtonItem(image: #imageLiteral(resourceName: "Domain"), style: UIBarButtonItemStyle.plain, target: self, action: nil)]
@@ -45,10 +69,16 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        self.title = "LOADING"
+        navigationController!.title = "LOADING"
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        self.title = "DONE"
+        navigationController!.title = "DONE"
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "estimatedProgress" {
+            progressView.progress = Float(webView.estimatedProgress)
+        }
     }
     
     func shareTapped() {
