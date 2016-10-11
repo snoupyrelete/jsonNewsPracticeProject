@@ -13,8 +13,10 @@ import Foundation
 class NewsTableViewController: UITableViewController
 {
 
-
-    var selectedSources = [String]()
+//
+//    var selectedSources = [String]()
+    // set manually to debug for swrevealcontroller bc not passed in prepareforsegue
+    var selectedSources = ["associated-press"]
     var titleArray = [String]()
     var descriptionArray = [String]()
     var imageArray = [String]()
@@ -26,8 +28,15 @@ class NewsTableViewController: UITableViewController
     {
         super.viewDidLoad()
         
+        //changed segue to swrevealcontroller = push (deprecated)
+        // change in viewillappear to hide/show bar always
+        // problem is in swreveals custom segues!
         navigationController!.isNavigationBarHidden = false
-       
+        navigationItem.title = "Hello!"
+        
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(buttonAction))
+
+        
         for i in selectedSources
         {
             
@@ -49,8 +58,7 @@ class NewsTableViewController: UITableViewController
         //let ABC = xSources.parseData("https://newsapi.org/v1/sources?language=en")
         //test for boilerpipe url
                 print("sources in newsTable: \(selectedSources)")
-        navigationItem.hidesBackButton = false
-
+ 
         
         // I will concatanate the source after source= in the urlStringInput to make it usable in a loop
  
@@ -85,7 +93,7 @@ class NewsTableViewController: UITableViewController
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.isNavigationBarHidden = false
+        //navigationController?.isNavigationBarHidden = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -233,4 +241,5 @@ class NewsTableViewController: UITableViewController
 //    }
 
 }
+
 }

@@ -34,6 +34,16 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     
+
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem)
+    {
+        buttonAction(sender)
+    }
+    
+    
+    // !!!!!! buttonAction(sender)
+    
+  
     let sources = myJSON()
    // TODO: get nessources and associated info and logo programatically.
 //    let listOfNewsSources = ["ars-technica","associated-press","bbcNews","bbcSports","bild","bloomberg","buzzFeed", "cnbc","cnn","dailyMail","engadget","entertainmentWeekly","espn","espnCricInfo", "financialTimes", "focus", "foxSports", "googleNews", "hacker-news", "ign", "independent", "mashable", "metro", "mirror", "nationalGeographic", "newScientist", "nflNews", "polygon", "recode", "redditRALL", "reuters", "skyNews", "skySportsNews", "spiegelOnline", "talksport", "techCrunch", "techradar", "theGuardianUK", "theHindu", "theHuffingtonPost", "theNewYorkTimes", "theNextWeb", "theTelegraph", "theTimesOfIndia", "theVerge", "theWallStreetJournal", "theWashingtonPost", "time", "usaToday", "wiredDe"]
@@ -147,8 +157,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController!.isToolbarHidden = true
         
+      
                 //        DispatchQueue.global(qos: .background).async { [weak self]
         //            () -> Void in self?.sources.parseData("https://newsapi.org/v1/sources?language=en")
         //            // Background thread - netowrk
@@ -183,7 +193,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         navigationItem.title = "Subscriptions"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(buttonAction))
-        navigationItem.hidesBackButton = true
+        //navigationItem.hidesBackButton = true
+ 
         
         //sources.objects = sources.parseData("https://newsapi.org/v1/sources?language=en")
         //print("sources.objects are \(sources.objects)")
@@ -263,7 +274,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
     }
     
-    func buttonAction(_ sender: UIButton!) {
+    func buttonAction(_ sender: UIBarButtonItem) {
         print("Button tapped")
         if selectedSources.count < 1 {
             print("You must select atleast 1 source.")
