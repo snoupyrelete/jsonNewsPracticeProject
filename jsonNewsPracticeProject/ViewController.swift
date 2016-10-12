@@ -157,7 +157,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.collectionView.allowsMultipleSelection = true
+
       
                 //        DispatchQueue.global(qos: .background).async { [weak self]
         //            () -> Void in self?.sources.parseData("https://newsapi.org/v1/sources?language=en")
@@ -220,28 +221,25 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
      
 
         // Detects first launch.
-//        let launchedBefore = NSUserDefaults.standardUserDefaults().boolForKey("launchedBefore")
-//        if launchedBefore  {
-//            print("Not first launch.")
-//           // presentViewController(tableViewController, sender: <#T##AnyObject?#>)
-//            presentedViewController(tableViewController, animated: true, completion: nil)
-//            performSegueWithIdentifier("toTable", sender: self)
-           
-            // grand central dispatch
-//            dispatch_async(dispatch_get_main_queue()){
-//                
-//                self.performSegueWithIdentifier("toTable", sender: self)
-//                
-//            }
+//          let launchedBefore = UserDefaults.standardUserDefaults().boolForKey("launchedBefore")
+//          if launchedBefore  {
+//              print("Not first launch.")
+//              performSegue(withIdentifier: "toTable", sender: self)
+//           
+//            // grand central dispatch
+//              //dispatch_async(dispatch_get_main_queue()){
+//        
+//                  //self.performSegueWithIdentifier("toTable", sender: self)
+//        
+//              //}
+//          }
+//          else {
+//              print("First launch, setting NSUserDefault.")
+//              UserDefaults.standardUserDefaults().setBool(true, forKey: "launchedBefore")
 //        }
-//        else {
-//            print("First launch, setting NSUserDefault.")
-//            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "launchedBefore")
-//        }
-   
-        self.collectionView.allowsMultipleSelection = true
-        
-        
+//   
+        //
+//        
 //        func indexPathsForSelectedItems() -> [NSIndexPath]? {
 //            selectedSources.append(String(NSIndexPath))
 //            
@@ -268,7 +266,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toTable" {
             print ("seg id is toTable")
-            if let destination = segue.destination as? NewsTableViewController {
+            if let destination = segue.destination as? SWViewController {
                 destination.selectedSources = selectedSources
             }
         }

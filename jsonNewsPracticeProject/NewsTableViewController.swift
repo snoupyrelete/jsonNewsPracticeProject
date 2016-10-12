@@ -16,13 +16,15 @@ class NewsTableViewController: UITableViewController
 //
 //    var selectedSources = [String]()
     // set manually to debug for swrevealcontroller bc not passed in prepareforsegue
-    var selectedSources = ["associated-press"]
+    var selectedSources = [String]()
     var titleArray = [String]()
     var descriptionArray = [String]()
     var imageArray = [String]()
     var objects = [[String: String]]()
     
     let articles = myJSON()
+    
+    @IBOutlet weak var open: UIBarButtonItem!
     
     override func viewDidLoad()
     {
@@ -31,6 +33,10 @@ class NewsTableViewController: UITableViewController
         //changed segue to swrevealcontroller = push (deprecated)
         // change in viewillappear to hide/show bar always
         // problem is in swreveals custom segues!
+        open.target = self.revealViewController()
+        open.action = #selector(SWRevealViewController.revealToggle(_:))
+        
+        
         navigationController!.isNavigationBarHidden = false
         navigationItem.title = "Hello!"
         
@@ -143,9 +149,14 @@ class NewsTableViewController: UITableViewController
 
         let imageView = cellImg.viewWithTag(2) as! UIImageView
         
-        imageView.sd_setImage(with: URL(string: imageString!))
-        
+        //placeholder necessary to load correct images in cells.
+        imageView.sd_setImage(with: URL(string: imageString!), placeholderImage: UIImage(named: "imageNotFound"))
+        //imageView.sd_setImage(with: URL(string: imageString!))
 
+        
+//        imageView.sd_cancelCurrentImageLoad()
+        
+        
 //            if imageString != nil  {
 //                if let url: URL = URL(string: imageString!) {
 //                    if let data = try? Data(contentsOf: url) {

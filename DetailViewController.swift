@@ -20,49 +20,58 @@ class DetailViewController: UIViewController {
 
     
     let content = myJSON()
-   // var objects = [[String: String]]()
     var object = [String: String]()
 
-    //@IBAction func switchToWebView(_ sender: UISwitch) {
+
     
-    //}
-    
-    
-//    @IBAction func switchToWeb(_ sender: AnyObject) {
-//       
-//    }
-    
-    
-//    func buttonAction(_ sender: UIButton!) {
-//        print("Button tapped")
-//        performSegue(withIdentifier: "toTable", sender: nil)
-//        //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        //        let vc = storyboard.instantiateViewControllerWithIdentifier("NewsTableViewController") as! UITableViewController
-//        //        self.navigationController!.pushViewController(vc, animated: true)
-//        //        print(vc)
-//    }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("Detail view did load")
+        
+        let detailURL =  "https://boilerpipe-web.appspot.com/extract?url=" + object["url"]! + "&output=json"
+        
+        content.objects = content.parseData(detailURL)
+        let contentObject = content.objects[0]
+        
+        detailArticleBody.text = contentObject["content"]
+        //print ("FLAG content \(contentObject["content"])")
+        if contentObject["content"] != nil   {
+            print("not nil")
+        } else {
+            print("nil")
+        }
+        //let test = contentObject["content"]
+        // var firstChar = Array(test)[0]
+        
         navigationController?.isNavigationBarHidden = false
-       // navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(switchToWeb))
+        
         //Icon from icons8 - 32 png
         navigationItem.title = "test!"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Domain"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(switchToWeb))
         //navigationItem.backBarButtonItem!.image = #imageLiteral(resourceName: "Circled Left 2")
 //        navigationItem.backBarButtonItem?.
-        print(object["image"])
+//        print(object["image"])
         
         
         
-        let detailURL =  "https://boilerpipe-web.appspot.com/extract?url=" + object["url"]! + "&output=json"
+        
+        //&extractor=ArticleExtractor"
+        /* "&extractor=" types from api:
+         
+         --ArticleExtractor	(default). A full-text extractor which is tuned towards news articles. In this scenario it achieves higher accuracy than DefaultExtractor.
+         --DefaultExtractor	A quite generic full-text extractor, but usually not as good as ArticleExtractor.
+         --LargestContentExtractor	Like DefaultExtractor, but only keeps the largest content block. Good for non-article style texts with only one main content block.
+         --KeepEverythingExtractor	Treats everything as "content". Useful to track down SAX parsing errors.
+ 
+         */
         
 //        let myUrl = NSURL (string: object["url"]!)
 //        let requestObj = URLRequest(url: myUrl as! URL)
 //        detailArticleWebView.loadRequest(requestObj)
-        
+        //detailArticleSource.text = object["source"]
         let imageString = object["image"]
         
         if imageString != nil  {
@@ -82,18 +91,15 @@ class DetailViewController: UIViewController {
 //            
 //               cellImg.image = image
      
+            
+        
+
         }
         
         
       
-        content.objects = content.parseData(detailURL)
-        let contentObject = content.objects[0]
         
-        detailArticleBody.text = contentObject["content"]
-        
-        print ("FLAG content \(contentObject["content"])")
-        
-        print(content.objects)
+        //print(content.objects)
         
         //print("objects in dvc: \(objects)")
         
@@ -107,7 +113,7 @@ class DetailViewController: UIViewController {
         detailArticleDate.text = object["date"]
         detailArticleURL.text = object["url"]
         
-        print("x: \(object["url"])")
+        //print("x: \(object["url"])")
 
         //detailArticleImage.image = object["image"]
 
@@ -159,8 +165,6 @@ class DetailViewController: UIViewController {
         }
             
     }
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController!.isToolbarHidden = true
-    }
+  
 
 }
