@@ -48,12 +48,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
   
     let sources = myJSON()
-   // TODO: get nessources and associated info and logo programatically.
-//    let listOfNewsSources = ["ars-technica","associated-press","bbcNews","bbcSports","bild","bloomberg","buzzFeed", "cnbc","cnn","dailyMail","engadget","entertainmentWeekly","espn","espnCricInfo", "financialTimes", "focus", "foxSports", "googleNews", "hacker-news", "ign", "independent", "mashable", "metro", "mirror", "nationalGeographic", "newScientist", "nflNews", "polygon", "recode", "redditRALL", "reuters", "skyNews", "skySportsNews", "spiegelOnline", "talksport", "techCrunch", "techradar", "theGuardianUK", "theHindu", "theHuffingtonPost", "theNewYorkTimes", "theNextWeb", "theTelegraph", "theTimesOfIndia", "theVerge", "theWallStreetJournal", "theWashingtonPost", "time", "usaToday", "wiredDe"]
     var selectedSources = [String]()
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("XYZ \(sources.objects)")
+
         return sources.objects.count
 
     }
@@ -68,32 +66,32 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         cell.newsDescription.isHidden = true
         
         
-        if collectionView.indexPathsForSelectedItems?.count > 0 { // is this line necessary?
+       // if collectionView.indexPathsForSelectedItems?.count > 0 { // is this line necessary?
             // print("IP : \(indexPath)")
             let object = sources.objects[(indexPath as NSIndexPath).row]
             
-            
             let newSource = object["id"]
-          //  selectedSources.append("\(listOfNewsSources[indexPath])")
-         //   print(String(listOfNewsSources[NSIndexPath]))
-           // selectedSources.append(String(listOfNewsSources[NSIndexPath]))
             selectedSources.append(newSource!)
             print("Selected sources: \(selectedSources)")
-        }
+        //}
      
     }
     
     // Resets borderColor to its default, unselected state.
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)! as! NewsCell
-        //cell.newsLogo.layer.borderColor = UIColor.darkGray.cgColor
+        let object = sources.objects[(indexPath as NSIndexPath).row]
+        let sourceName = object["id"]
+        
+    
         cell.checkBox.offAnimationType = BEMAnimationType.bounce
         cell.checkBox.setOn(false, animated: true)
         cell.newsDescription.isHidden = false
+        let indexToRemove = selectedSources.index(of: sourceName!)
+        selectedSources.remove(at: indexToRemove!)
         
-        //TODO: Need to remove deselected item from selectedSources array.
-        print("ip \(indexPath.row)")
-        //selectedSources.remove(at: indexPath.row)
+        print("Selected sources (after deselect) \(selectedSources)")
+      //  selectedSources.
         // if removed = index out of range!
         
     }
