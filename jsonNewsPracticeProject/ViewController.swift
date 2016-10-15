@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreGraphics
+import ChameleonFramework
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -96,9 +98,23 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let imageString: String? = object["image"]
         
         let imageView = cell.viewWithTag(1) as! UIImageView
-        
+        cell.newsDescription.text = object["description"]
+        //cell.backgroundColor = UIColor.blue
     
+        
         imageView.sd_setImage(with: URL(string: imageString!))
+       
+        //cell.backgroundColor = FlatWhite()
+        cell.backgroundColor = UIColor.white
+        
+//        let image = imageView.image
+//        let averageImageColor = UIColor(averageColorFrom: image)
+//        cell.backgroundColor = ComplementaryFlatColorOf(averageImageColor!)
+        
+//        if let image = imageView.image {
+//        
+//        imageView.frame = CGRect(x: 0.0, y: 0.0, width: image.size.width, height: image.size.height)
+//        }
         
 //        DispatchQueue.global(qos: .background).async { [weak self]
 //            () -> Void in self?.sources.parseData("https://newsapi.org/v1/sources?language=en")
@@ -144,9 +160,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //        cell.newsLogo.layer.cornerRadius = cell.frame.size.width / 2
 //        cell.newsLogo.clipsToBounds = false
         
-        cell.layer.cornerRadius = 0
-        cell.newsLogo.layer.borderWidth = 2
-        cell.newsLogo.layer.cornerRadius = 0
+        cell.layer.cornerRadius = 50
+        //cell.newsLogo.layer.borderWidth = 1
+        //cell.newsLogo.layer.cornerRadius = imageView.frame.width / 2
         cell.newsLogo.clipsToBounds = true
 
         
@@ -158,30 +174,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.allowsMultipleSelection = true
+        collectionView.backgroundColor = FlatGray()
+        //self.setStatusBarStyle(UIStatusBarStyleContrast)
+        //self.setStatusBarStyle(<#T##statusBarStyle: UIStatusBarStyle##UIStatusBarStyle#>)
 
-      
-                //        DispatchQueue.global(qos: .background).async { [weak self]
-        //            () -> Void in self?.sources.parseData("https://newsapi.org/v1/sources?language=en")
-        //            // Background thread - netowrk
-        //
-        //            DispatchQueue.main.async(execute: {
-        //                // UI Updates - touch the ui
-        //                self?.collectionView.reloadData()
-        //            })
-        //        }
-        
-//        backgroundQueue.async {
-//            self.sources.objects = self.sources.parseData("https://newsapi.org/v1/sources?language=en")
-//            self.collectionView.reloadData()
-//            DispatchQueue.main.async (execute : {
-//                self.collectionView.reloadData()
-//            })
-//        }
+ 
         
 //        DispatchQueue.global(qos: .userInitiated).async {
 //            print("This is run on the background queue abcdef")
             self.sources.objects = self.sources.parseData("https://newsapi.org/v1/sources?language=en")
-            print(self.sources.objects)
+            //print(self.sources.objects)
             
             
 //            DispatchQueue.main.async {

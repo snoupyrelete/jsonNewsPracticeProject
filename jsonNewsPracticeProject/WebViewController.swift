@@ -18,20 +18,14 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     @IBOutlet weak var progressView: UIProgressView!
    
     @IBAction func reload(sender: UIBarButtonItem) {
-        
         webView.reload()
-        
     }
     
     @IBAction func back(sender: UIBarButtonItem) {
-        
         webView.goBack()
-        
     }
     @IBAction func forward(sender: UIBarButtonItem) {
-        
         webView.goForward()
-        
     }
     
     override func loadView() {
@@ -62,7 +56,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         webView.load(myRequest)
         
         self.title = "Web View"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonTapped))
         
         
     }
@@ -81,7 +75,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         }
     }
     
-    func shareTapped() {
+    func shareButtonTapped() {
         
         let sentFrom = "\n--Sent from Dylan's JSON News app."
         //var sharingItems: [Any?] = [url, string, test]

@@ -1,14 +1,32 @@
 PODS:
+  - ChameleonFramework/Default (2.1.0)
+  - ChameleonFramework/Swift (2.1.0):
+    - ChameleonFramework/Default
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - SwiftDate (4.0.3)
 
 DEPENDENCIES:
+  - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`, branch `swift3`)
   - SDWebImage (~> 3.8)
+  - SwiftDate (~> 4.0)
+
+EXTERNAL SOURCES:
+  ChameleonFramework:
+    :branch: swift3
+    :git: https://github.com/ViccAlexander/Chameleon.git
+
+CHECKOUT OPTIONS:
+  ChameleonFramework:
+    :commit: c400c32eead1c6e74008983c3e7c845ae069b41d
+    :git: https://github.com/ViccAlexander/Chameleon.git
 
 SPEC CHECKSUMS:
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SwiftDate: 8ee0ba571aabf62a3c44585620c199f868f063e9
 
-PODFILE CHECKSUM: 45b3602031391abf8b020dc9e2ef232913bf43c8
+PODFILE CHECKSUM: 32ec44dee8a3bebf510f66529b9853bdac0ab7a3
 
 COCOAPODS: 1.1.0.rc.2

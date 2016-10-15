@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftDate
 
 class DetailViewController: UIViewController {
 
@@ -23,11 +24,16 @@ class DetailViewController: UIViewController {
     var object = [String: String]()
 
 
-    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController!.isToolbarHidden = true
+    }
 
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+     
+
         
         print("Detail view did load")
         
@@ -37,7 +43,8 @@ class DetailViewController: UIViewController {
         let contentObject = content.objects[0]
         
         detailArticleBody.text = contentObject["content"]
-        //print ("FLAG content \(contentObject["content"])")
+        print("content")
+        print (contentObject["content"])
         if contentObject["content"] != nil   {
             print("not nil")
         } else {
@@ -46,7 +53,7 @@ class DetailViewController: UIViewController {
         //let test = contentObject["content"]
         // var firstChar = Array(test)[0]
         
-        navigationController?.isNavigationBarHidden = false
+        //navigationController?.isNavigationBarHidden = false
         
         //Icon from icons8 - 32 png
         navigationItem.title = "test!"
@@ -111,7 +118,17 @@ class DetailViewController: UIViewController {
         detailArticleAuthor.text = "By " + object["author"]!
         //detailArticleDescription.text = object["description"]
         detailArticleDate.text = object["date"]
-        detailArticleURL.text = object["url"]
+        //let x = NSDate()
+    
+        if let unwrappedDate = object["date"] {
+            do {
+            let formattedDate = try DateInRegion(string: unwrappedDate, format: .iso8601(options: .withInternetDateTime), fromRegion: nil)
+            print("formatted date: \(formattedDate)")
+            detailArticleDate.text = String(describing: formattedDate)
+            } catch {
+                print("This is the catch required by DateInRegion, meaning the date couldn't be formatted correctly.")
+            }
+        }
         
         //print("x: \(object["url"])")
 

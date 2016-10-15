@@ -8,7 +8,7 @@
 
 import UIKit
 import Foundation
-
+import ChameleonFramework
 
 class NewsTableViewController: UITableViewController
 {
@@ -36,9 +36,10 @@ class NewsTableViewController: UITableViewController
         open.target = self.revealViewController()
         open.action = #selector(SWRevealViewController.revealToggle(_:))
         
-        
+        navigationController!.isToolbarHidden = true
         navigationController!.isNavigationBarHidden = false
         navigationItem.title = "Hello!"
+        //tableView.backgroundColor = FlatRed()
         
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(buttonAction))
 
@@ -47,7 +48,7 @@ class NewsTableViewController: UITableViewController
         {
             
             let inputURL: String = "https://newsapi.org/v1/articles?source=" + i + "&sortBy=top&apiKey=ab8055c6a10b46e281e19b522c215120"
-            print(inputURL)
+            //print(inputURL)
             
              articles.objects = articles.parseData(inputURL)
         }
@@ -89,6 +90,9 @@ class NewsTableViewController: UITableViewController
 //            }
 //        tableView.rowHeight = UITableViewAutomaticDimension
 //        tableView.estimatedRowHeight = 250
+        
+//        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 500
 }
 
      
@@ -107,16 +111,12 @@ class NewsTableViewController: UITableViewController
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        print("objects count \(articles.objects.count)")
+        //print("objects count \(articles.objects.count)")
         return articles.objects.count
     }
 
@@ -124,7 +124,7 @@ class NewsTableViewController: UITableViewController
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //TODO: if there is no image received let cell = another cell class (as! otherCell) so that it loads a view without an image, with title and description scaled accordingly. xib files?
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewNewsCell
-        print("objects from myJSON to tableview in cellforrow \(articles.objects)")
+        //print("objects from myJSON to tableview in cellforrow \(articles.objects)")
 //        
 //        var objects = articles.objects
         
@@ -140,83 +140,40 @@ class NewsTableViewController: UITableViewController
        // print("object[\"title\"]: \(object["title"])")
 
         cell.articleDescription.text = object["description"]
-
-       
+    
         // why can't this be cell.articleImage.image = x ??
         
         // **** problem with http instead of https! Could do AllowsArbitraryLoads but bad for secuirty reasons, some sources like Hacker News don't have specified urls for image hosting, whereas Associated press does, so it can be excused in the info.plist. (binaryapi.ap.org)
         let imageString: String? = object["image"]
 
         let imageView = cellImg.viewWithTag(2) as! UIImageView
+        imageView.contentMode = .scaleAspectFit
+            //.UIViewContentMode = UIViewContentMode.scaleAspectFit
+
+        
         
         //placeholder necessary to load correct images in cells.
         imageView.sd_setImage(with: URL(string: imageString!), placeholderImage: UIImage(named: "imageNotFound"))
-        //imageView.sd_setImage(with: URL(string: imageString!))
 
-        
-//        imageView.sd_cancelCurrentImageLoad()
-        
-        
-//            if imageString != nil  {
-//                if let url: URL = URL(string: imageString!) {
-//                    if let data = try? Data(contentsOf: url) {
-//                    let image = UIImage(data : data)
-//                    cellImg.image = image
-//                } else {
-//                    let image = UIImage(named: "imageNotFound")
-//                    cellImg.image = image
-//                }
-//                }
         // Need to center vertically
         
         //  let imageCenter = cell.frame.height / 2
         
-               
+        
+    
      //   cellImg.image = image
-        cellImg.layer.borderColor = UIColor.black.cgColor
-        cellImg.layer.borderWidth = 1
-        cellImg.layer.cornerRadius = 10
+        //cellImg.layer.borderColor = UIColor.black.cgColor
+        //cellImg.layer.borderWidth = 1
+        //cellImg.layer.cornerRadius = 10
+        
         cellImg.clipsToBounds = true
         cell.addSubview(cellImg)
-             //   }
+        cell.backgroundColor = FlatWhite()
 
         return cell
     
     }
     
- 
-//    func parseJSON(json: JSON) {
-//        for article in json["articles"].arrayValue {
-//            let title = article["title"].stringValue
-//            let description = article["description"].stringValue
-//            let author = article["author"].stringValue
-//            let image = article["urlToImage"].stringValue
-//            let date = article["publishedAt"].stringValue
-//            let url = article["url"].stringValue
-//            let obj = ["title": title, "author": author, "image": image, "description": description, "date": date, "url": url]
-//            objects.append(obj)
-//        }
-//        
-//        dispatch_async(dispatch_get_main_queue()) { [unowned self] in
-//            self.tableView.reloadData()
-//        }
-//    }
- 
-
-
-
-
-
-
-    /*
-    // MARK: - Navigation
-     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == "toArticle"
@@ -227,30 +184,11 @@ class NewsTableViewController: UITableViewController
             let object = articles.objects[(indexPath as NSIndexPath).row]
             if let destination = segue.destination as? DetailViewController
             {
-//                print("dest is \(destination)")
-//                print(objects)
-               // destination.objects = objects
                 destination.object = object
             }
-            
-//            if let destination = segue.destinationViewController as? NewsTableViewController {
-//                destination.selectedSources = selectedSources
-//            }
-
-                    // UINavigationController).topViewController as? DetailViewController
-                // print((segue.destinationViewController as! UINavigationController).topViewController)
-                //controller.detailItem = object
-                //controller.navigationItem.hidesBackButton = false
-            //}
         }
         
     }
-
-//    func showArticle()
-//    {
-//        //performSegueWithIdentifier("toArticle", sender: nil)
-//    }
-
 }
 
 }

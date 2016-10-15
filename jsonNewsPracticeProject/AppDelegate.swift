@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let backImg: UIImage = UIImage(named: "Circled Left 2")!
 //        UIBarButtonItem.appearance().setBackButtonBackgroundImage(backImg, for: .normal, barMetrics: .default)
 //        UIBarButtonItem.appearance().
+        Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.flatMint(), with: UIContentStyle.contrast)
+        
+        
+        //        Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.flatWatermelon(), withSecondaryColor: UIColor.flatTeal(), andContentStyle: .contrast)
         return true
     }
 
