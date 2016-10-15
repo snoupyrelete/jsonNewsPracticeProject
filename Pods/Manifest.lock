@@ -1,4 +1,5 @@
 PODS:
+  - BEMCheckBox (1.2.1)
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
@@ -8,6 +9,7 @@ PODS:
   - SwiftDate (4.0.3)
 
 DEPENDENCIES:
+  - BEMCheckBox
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`, branch `swift3`)
   - SDWebImage (~> 3.8)
   - SwiftDate (~> 4.0)
@@ -23,10 +25,11 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ViccAlexander/Chameleon.git
 
 SPEC CHECKSUMS:
+  BEMCheckBox: 264b8b72aa92adbfefa265cc58a0cdb86b207b9f
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SwiftDate: 8ee0ba571aabf62a3c44585620c199f868f063e9
 
-PODFILE CHECKSUM: 32ec44dee8a3bebf510f66529b9853bdac0ab7a3
+PODFILE CHECKSUM: 779a5e59b500b051d7a9164eb78ea12ff8290875
 
 COCOAPODS: 1.1.0.rc.2

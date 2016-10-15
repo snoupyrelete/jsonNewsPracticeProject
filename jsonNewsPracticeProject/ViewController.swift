@@ -9,6 +9,7 @@
 import UIKit
 import CoreGraphics
 import ChameleonFramework
+import BEMCheckBox
 
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {

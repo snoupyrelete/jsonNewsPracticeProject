@@ -9,7 +9,7 @@ target 'jsonNewsPracticeProject' do
 	pod 'SDWebImage', '~>3.8'
 	pod ’SwiftDate’, ‘~>4.0’
 	pod ‘ChameleonFramework/Swift’, :git => 'https://github.com/ViccAlexander/Chameleon.git', :branch => ’swift3’
-
+	pod ‘BEMCheckBox’
   # Pods for jsonNewsPracticeProject
 
 end
