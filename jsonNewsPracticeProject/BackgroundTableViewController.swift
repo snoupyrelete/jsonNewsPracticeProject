@@ -14,7 +14,7 @@ class BackgroundTableViewController: UITableViewController {
     var testArray = ["Settings","PROFILE?","Hello3"]
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.backgroundColor = FlatWhiteDark()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -49,7 +49,7 @@ class BackgroundTableViewController: UITableViewController {
         //cell.textLabel!.text = "UGHHHH"
         //cell.detailTextLabel?.text = "Hi"
         //cell.textLabel!.text = "Settings"
-        cell.backgroundColor = UIColor.flatPurple()
+        //cell.backgroundColor = UIColor.flatPurple()
         return cell
     }
  

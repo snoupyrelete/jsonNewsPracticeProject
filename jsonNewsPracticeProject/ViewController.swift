@@ -183,7 +183,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         super.viewDidLoad()
         self.collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = FlatGray()
-        //self.setStatusBarStyle(UIStatusBarStyleContrast)
+        self.setStatusBarStyle(.default)
         //self.setStatusBarStyle(<#T##statusBarStyle: UIStatusBarStyle##UIStatusBarStyle#>)
 
  
@@ -199,11 +199,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //                self.collectionView.reloadData()
 //            }
 //        }
-        collectionView.reloadData()
+        
+        //collectionView.reloadData()
+        
         //print (sources.objects)
         
-        navigationItem.title = "Subscriptions"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(buttonAction))
+        //navigationItem.title = "Subscriptions"
+        //navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(buttonAction))
+        //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sub all", style: .plain, target: self, action: nil)
+        
+        
         //navigationItem.hidesBackButton = true
  
         

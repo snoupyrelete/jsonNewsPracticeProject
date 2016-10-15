@@ -18,12 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 //        let backImg: UIImage = UIImage(named: "Circled Left 2")!
-//        UIBarButtonItem.appearance().setBackButtonBackgroundImage(backImg, for: .normal, barMetrics: .default)
+        //UIBarButtonItem.appearance().setBackButtonBackgroundImage(#imageLiteral(resourceName: "Circled Left 2"), for: .normal, barMetrics: .default)
 //        UIBarButtonItem.appearance().
         Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.flatSkyBlueColorDark(), with: UIContentStyle.contrast)
-        
-        
-        //        Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.flatWatermelon(), withSecondaryColor: UIColor.flatTeal(), andContentStyle: .contrast)
+   
+     
         return true
     }
 

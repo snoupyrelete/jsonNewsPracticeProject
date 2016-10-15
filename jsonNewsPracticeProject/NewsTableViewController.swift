@@ -38,7 +38,7 @@ class NewsTableViewController: UITableViewController
         
         navigationController!.isToolbarHidden = true
         navigationController!.isNavigationBarHidden = false
-        navigationItem.title = "Hello!"
+        //navigationItem.title = "Hello!"
         //tableView.backgroundColor = FlatRed()
         
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(buttonAction))
@@ -134,7 +134,7 @@ class NewsTableViewController: UITableViewController
 
         let cellImg : UIImageView = UIImageView(frame: CGRect(x: 5, y: 5, width: 90, height: 90))
 
-        cellImg.tag = 2
+        cellImg.tag = 1
         let object = articles.objects[(indexPath as NSIndexPath).row]
        // print("objecT: \(object)")
        
@@ -149,38 +149,36 @@ class NewsTableViewController: UITableViewController
         // **** problem with http instead of https! Could do AllowsArbitraryLoads but bad for secuirty reasons, some sources like Hacker News don't have specified urls for image hosting, whereas Associated press does, so it can be excused in the info.plist. (binaryapi.ap.org)
         let imageString: String? = object["image"]
 
-        let imageView = cellImg.viewWithTag(2) as! UIImageView
-        imageView.contentMode = .scaleAspectFit
+        //let imageView = cellImg.viewWithTag(2) as! UIImageView
+        cellImg.contentMode = .scaleAspectFit
             //.UIViewContentMode = UIViewContentMode.scaleAspectFit
 
         
         
         //placeholder necessary to load correct images in cells.
-        imageView.sd_setImage(with: URL(string: imageString!), placeholderImage: UIImage(named: "imageNotFound"))
+        cellImg.sd_setImage(with: URL(string: imageString!), placeholderImage: UIImage(named: "imageNotFound"))
 
         cellImg.clipsToBounds = true
         cell.addSubview(cellImg)
         cell.backgroundColor = FlatWhite()
-
+        
         return cell
     
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if segue.identifier == "toArticle"
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?)
         {
-            print ("seg id is toArticle")
-            if let indexPath = self.tableView.indexPathForSelectedRow
+            if segue.identifier == "toArticle"
             {
-            let object = articles.objects[(indexPath as NSIndexPath).row]
-            if let destination = segue.destination as? DetailViewController
-            {
-                destination.object = object
+                print ("seg id is toArticle")
+                if let indexPath = self.tableView.indexPathForSelectedRow
+                {
+                let object = articles.objects[(indexPath as NSIndexPath).row]
+                if let destination = segue.destination as? DetailViewController
+                {
+                    destination.object = object
+                }
             }
         }
-        
     }
-}
-
 }
