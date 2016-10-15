@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 class BackgroundTableViewController: UITableViewController {
 
@@ -48,7 +49,7 @@ class BackgroundTableViewController: UITableViewController {
         //cell.textLabel!.text = "UGHHHH"
         //cell.detailTextLabel?.text = "Hi"
         //cell.textLabel!.text = "Settings"
-        
+        cell.backgroundColor = UIColor.flatPurple()
         return cell
     }
  

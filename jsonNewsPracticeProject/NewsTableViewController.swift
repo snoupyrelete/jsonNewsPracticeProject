@@ -129,6 +129,9 @@ class NewsTableViewController: UITableViewController
 //        var objects = articles.objects
         
 //        print("objects 1 in cellforrow\(objects)")
+        
+        //let imageCenter = cell.frame.height / 2
+
         let cellImg : UIImageView = UIImageView(frame: CGRect(x: 5, y: 5, width: 90, height: 90))
 
         cellImg.tag = 2
@@ -155,17 +158,6 @@ class NewsTableViewController: UITableViewController
         //placeholder necessary to load correct images in cells.
         imageView.sd_setImage(with: URL(string: imageString!), placeholderImage: UIImage(named: "imageNotFound"))
 
-        // Need to center vertically
-        
-        //  let imageCenter = cell.frame.height / 2
-        
-        
-    
-     //   cellImg.image = image
-        //cellImg.layer.borderColor = UIColor.black.cgColor
-        //cellImg.layer.borderWidth = 1
-        //cellImg.layer.cornerRadius = 10
-        
         cellImg.clipsToBounds = true
         cell.addSubview(cellImg)
         cell.backgroundColor = FlatWhite()

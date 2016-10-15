@@ -62,7 +62,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
        
         let cell = collectionView.cellForItem(at: indexPath)! as! NewsCell
         cell.newsLogo.layer.borderColor = UIColor.red.cgColor
-    
+        cell.checkBox.onAnimationType = BEMAnimationType.bounce
+        cell.checkBox.isHidden = false
+        cell.checkBox.setOn(true, animated: true)
+        cell.newsDescription.isHidden = true
+        
+        
         if collectionView.indexPathsForSelectedItems?.count > 0 { // is this line necessary?
             // print("IP : \(indexPath)")
             let object = sources.objects[(indexPath as NSIndexPath).row]
@@ -81,7 +86,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // Resets borderColor to its default, unselected state.
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)! as! NewsCell
-        cell.newsLogo.layer.borderColor = UIColor.darkGray.cgColor
+        //cell.newsLogo.layer.borderColor = UIColor.darkGray.cgColor
+        cell.checkBox.offAnimationType = BEMAnimationType.bounce
+        cell.checkBox.setOn(false, animated: true)
+        cell.newsDescription.isHidden = false
+        
         //TODO: Need to remove deselected item from selectedSources array.
         print("ip \(indexPath.row)")
         //selectedSources.remove(at: indexPath.row)
