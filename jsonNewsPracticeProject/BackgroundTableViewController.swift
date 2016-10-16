@@ -14,7 +14,7 @@ class BackgroundTableViewController: UITableViewController {
     var testArray = ["Settings","PROFILE?","Hello3"]
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundColor = FlatWhiteDark()
+        tableView.backgroundColor = FlatWhite()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

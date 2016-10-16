@@ -16,7 +16,9 @@ class NewsTableViewController: UITableViewController
 //
 //    var selectedSources = [String]()
     // set manually to debug for swrevealcontroller bc not passed in prepareforsegue
-    var selectedSources = [String]()
+    //var selectedSources = [String]()
+    
+    
     var titleArray = [String]()
     var descriptionArray = [String]()
     var imageArray = [String]()
@@ -29,6 +31,11 @@ class NewsTableViewController: UITableViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        let defaults = UserDefaults.standard
+        let selectedSources = defaults.stringArray(forKey: "SavedStringArray") ?? [String]()
+
+        
         
         //changed segue to swrevealcontroller = push (deprecated)
         // change in viewillappear to hide/show bar always

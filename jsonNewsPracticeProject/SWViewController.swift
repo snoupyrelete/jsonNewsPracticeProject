@@ -41,7 +41,7 @@ class SWViewController: SWRevealViewController {
             
             let tableVC = navVC.viewControllers.first as! NewsTableViewController
             
-            tableVC.selectedSources = selectedSources
+            //tableVC.selectedSources = selectedSources
         }
 
 

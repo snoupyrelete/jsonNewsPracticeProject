@@ -42,10 +42,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     {
         buttonAction(sender)
     }
-    
-    
-    // !!!!!! buttonAction(sender)
-    
   
     let sources = myJSON()
     var selectedSources = [String]()
@@ -66,20 +62,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         cell.newsDescription.isHidden = true
         
         
-       // if collectionView.indexPathsForSelectedItems?.count > 0 { // is this line necessary?
-            // print("IP : \(indexPath)")
-            let object = sources.objects[(indexPath as NSIndexPath).row]
+        let object = sources.objects[(indexPath as NSIndexPath).row]
             
-            let newSource = object["id"]
-            selectedSources.append(newSource!)
-            print("Selected sources: \(selectedSources)")
-        //}
+        let newSource = object["id"]
+        selectedSources.append(newSource!)
+        print("Selected sources: \(selectedSources)")
+    
      
     }
     
     // Resets borderColor to its default, unselected state.
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)! as! NewsCell
+        
         let object = sources.objects[(indexPath as NSIndexPath).row]
         let sourceName = object["id"]
         
@@ -87,13 +82,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         cell.checkBox.offAnimationType = BEMAnimationType.bounce
         cell.checkBox.setOn(false, animated: true)
         cell.newsDescription.isHidden = false
+        
         let indexToRemove = selectedSources.index(of: sourceName!)
         selectedSources.remove(at: indexToRemove!)
-        
-        print("Selected sources (after deselect) \(selectedSources)")
-      //  selectedSources.
-        // if removed = index out of range!
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -102,7 +93,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         let object = sources.objects[(indexPath as NSIndexPath).row]
         
-       // print("object is \(object)")
+        
         let imageString: String? = object["image"]
         
         let imageView = cell.viewWithTag(1) as! UIImageView
@@ -134,43 +125,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //            })
 //        }
 
-//        print(imageString)
-//        if imageString != nil  {
-//            if let url: URL = URL(string: imageString!) {
-//                if let data = try? Data(contentsOf: url) {
-//                    let image = UIImage(data : data)
-//                    cell.newsLogo.image = image
-//                } else {
-//                    let image = UIImage(named: "imageNotFound")
-//                    cell.newsLogo.image = image
-//                }
-//            }
-//        }
     
         
-        //let image = UIImage(named: listOfNewsSources[indexPath.row])
-        
-        //cell.newsLogo.image = image
-        
         cell.newsName.text = object["name"]
-        
-//        let myLabel = listOfNewsSources[indexPath.row]
-//        cell.newsName.text = myLabel
-        
-        //for index in 0...listOfNewsSources.count {
-        //let cell.UILabel.newsName = listOfNewsSources[indexPath]
-        // {
-        
-        
-        // Circle views
-//        cell.layer.cornerRadius = 50
-//        cell.newsLogo.layer.borderWidth = 5
-//        cell.newsLogo.layer.cornerRadius = cell.frame.size.width / 2
-//        cell.newsLogo.clipsToBounds = false
-        
         cell.layer.cornerRadius = 50
-        //cell.newsLogo.layer.borderWidth = 1
-        //cell.newsLogo.layer.cornerRadius = imageView.frame.width / 2
         cell.newsLogo.clipsToBounds = true
 
         
@@ -184,13 +142,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         self.collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = FlatGray()
         self.setStatusBarStyle(.default)
+        
+        let defaults = UserDefaults.standard
+        let myArray = defaults.stringArray(forKey: "SavedStringArray") ?? [String]()
+        print("nsuserdefaults of selected sources: \(myArray)")
+        
         //self.setStatusBarStyle(<#T##statusBarStyle: UIStatusBarStyle##UIStatusBarStyle#>)
 
  
         
 //        DispatchQueue.global(qos: .userInitiated).async {
 //            print("This is run on the background queue abcdef")
-            self.sources.objects = self.sources.parseData("https://newsapi.org/v1/sources?language=en")
+            sources.objects = sources.parseData("https://newsapi.org/v1/sources?language=en")
             //print(self.sources.objects)
             
             
@@ -200,38 +163,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //            }
 //        }
         
-        //collectionView.reloadData()
-        
-        //print (sources.objects)
-        
-        //navigationItem.title = "Subscriptions"
-        //navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(buttonAction))
-        //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sub all", style: .plain, target: self, action: nil)
-        
-        
-        //navigationItem.hidesBackButton = true
  
-        
-        //sources.objects = sources.parseData("https://newsapi.org/v1/sources?language=en")
-        //print("sources.objects are \(sources.objects)")
-     
-        
-//        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
-//        self.view.addSubview(navBar);
-//        let navItem = UINavigationItem(title: "Select Your Sources");
-//        let doneItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: nil, action: #selector(buttonAction));
-//        navItem.rightBarButtonItem = doneItem;
-//        navBar.setItems([navItem], animated: true);
-        
-        
-  
-//        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
-//        button.backgroundColor = .greenColor()
-//        button.setTitle("Done", forState: .Normal)
-//        button.addTarget(self, action: #selector(buttonAction), forControlEvents: .TouchUpInside)
-//        
-//        self.view.addSubview(button)
-//        
      
      
 
@@ -264,42 +196,44 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //    
 
         
-        //TODO: ASYNC running with API calls.
-        //TODO: CORE DATA NEWS SITES SUBSCRIPTIONS as collectionviews
-        //TODO: HWS Names to Faces App for collection view help. (project 10)
-        //TODO: ASSETS IMAGES SCALES AT DIFF SIZES 1x 2x 3x etc
-        
            }
 
 
-     override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toTable" {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        //let array = ["horse", "cow", "camel", "sheep", "goat"]
+        
+        let defaults = UserDefaults.standard
+        defaults.set(selectedSources, forKey: "SavedStringArray")
+        
+        if segue.identifier == "toTable"
+        {
             print ("seg id is toTable")
-            if let destination = segue.destination as? SWViewController {
+            if let destination = segue.destination as? SWViewController
+            {
                 destination.selectedSources = selectedSources
             }
         }
     }
     
-    func buttonAction(_ sender: UIBarButtonItem) {
+    func buttonAction(_ sender: UIBarButtonItem)
+    {
         print("Button tapped")
-        if selectedSources.count < 1 {
+        if selectedSources.count < 1
+        {
             print("You must select atleast 1 source.")
             let alert = UIAlertController(title: "Warning:", message: "Please subscribe to atleast 1 source.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
         performSegue(withIdentifier: "toTable", sender: nil)
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = storyboard.instantiateViewControllerWithIdentifier("NewsTableViewController") as! UITableViewController
-//        self.navigationController!.pushViewController(vc, animated: true)
-//        print(vc)
     }
 }
 
