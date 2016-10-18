@@ -43,14 +43,9 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         
         WebViewController.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
         
-        
-//        let toolbarItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "Domain"), style: UIBarButtonItemStyle.plain, target: self, action: nil), UIBarButtonItem(image: #imageLiteral(resourceName: "Domain"), style: UIBarButtonItemStyle.plain, target: self, action: nil)]
-        
         navigationController!.isToolbarHidden = false
         
         navigationController!.toolbar.setItems(toolbarItems, animated: true)
-//        let url = URL(string: object)
-//        articleWebView.loadRequest(URLRequest(url: url!))
         let myURL = URL(string: object)
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
@@ -78,20 +73,8 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     func shareButtonTapped() {
         
         let sentFrom = "\n--Sent from Dylan's JSON News app."
-        //var sharingItems: [Any?] = [url, string, test]
-        
         let vc = UIActivityViewController(activityItems: [webView.url!, sentFrom], applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        //vc.excludedActivityTypes = [UIActivityTypeReminder]
-        present(vc, animated: true)
-    }
-    
-        
-    
-    
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+                present(vc, animated: true)
     }
 }

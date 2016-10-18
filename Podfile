@@ -10,6 +10,7 @@ target 'jsonNewsPracticeProject' do
 	pod ’SwiftDate’, ‘~>4.0’
 	pod ‘ChameleonFramework/Swift’, :git => 'https://github.com/ViccAlexander/Chameleon.git', :branch => ’swift3’
 	pod ‘BEMCheckBox’
+	pod ’Spring’, :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
   # Pods for jsonNewsPracticeProject
 
 end

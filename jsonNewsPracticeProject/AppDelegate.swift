@@ -21,7 +21,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UIBarButtonItem.appearance().setBackButtonBackgroundImage(#imageLiteral(resourceName: "Circled Left 2"), for: .normal, barMetrics: .default)
 //        UIBarButtonItem.appearance().
         Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.flatSkyBlueColorDark(), with: UIContentStyle.contrast)
-   
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController: NewsTableViewController = storyboard.instantiateViewController(withIdentifier: "NewsTableViewController") as! NewsTableViewController
+        
+        
+        // Then push that view controller onto the navigation stack
+        //let rootViewController = self.window?.rootViewController as! UICollectionViewController
+     
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if launchedBefore {
+            print("Not first launch.")
+
+            DispatchQueue.main.async() {
+                storyboard.instantiateViewController(withIdentifier: "NewsTableViewController")
+                //rootViewController.pushViewController(viewController, animated: true)
+
+            }
+        } else {
+            print("First launch, setting NSUserDefault.")
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+        }
+
      
         return true
     }

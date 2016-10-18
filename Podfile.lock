@@ -6,30 +6,39 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - Spring (1.0.3)
   - SwiftDate (4.0.3)
 
 DEPENDENCIES:
   - BEMCheckBox
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`, branch `swift3`)
   - SDWebImage (~> 3.8)
+  - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
   - SwiftDate (~> 4.0)
 
 EXTERNAL SOURCES:
   ChameleonFramework:
     :branch: swift3
     :git: https://github.com/ViccAlexander/Chameleon.git
+  Spring:
+    :branch: swift3
+    :git: https://github.com/MengTo/Spring.git
 
 CHECKOUT OPTIONS:
   ChameleonFramework:
     :commit: c400c32eead1c6e74008983c3e7c845ae069b41d
     :git: https://github.com/ViccAlexander/Chameleon.git
+  Spring:
+    :commit: 3a9227c6e9157e7b47f5ac1ee5abab2a56b50002
+    :git: https://github.com/MengTo/Spring.git
 
 SPEC CHECKSUMS:
   BEMCheckBox: 264b8b72aa92adbfefa265cc58a0cdb86b207b9f
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
   SwiftDate: 8ee0ba571aabf62a3c44585620c199f868f063e9
 
-PODFILE CHECKSUM: 779a5e59b500b051d7a9164eb78ea12ff8290875
+PODFILE CHECKSUM: 584cadeb849a584a3651255a86a14338ab6b163f
 
 COCOAPODS: 1.1.0.rc.2

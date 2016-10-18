@@ -18,8 +18,13 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var detailArticleDate: UILabel!
     @IBOutlet weak var detailArticleBody: UILabel!
     @IBOutlet weak var detailArticleURL: UILabel!
+    @IBOutlet weak var webButton: UIButton!
 
-    
+    @IBAction func webViewButtonTouched(_ sender: AnyObject)
+    {
+        switchToWeb()
+    }
+
     let content = myJSON()
     var object = [String: String]()
 
@@ -30,11 +35,12 @@ class DetailViewController: UIViewController {
 
     
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
      
 
-        
+        webButton.layer.cornerRadius = 6
         print("Detail view did load")
         
         let detailURL =  "https://boilerpipe-web.appspot.com/extract?url=" + object["url"]! + "&output=json"
@@ -50,19 +56,11 @@ class DetailViewController: UIViewController {
         } else {
             print("nil")
         }
-        //let test = contentObject["content"]
-        // var firstChar = Array(test)[0]
-        
-        //navigationController?.isNavigationBarHidden = false
-        
+
         //Icon from icons8 - 32 png
         navigationItem.title = "test!"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Domain"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(switchToWeb))
-        //navigationItem.backBarButtonItem!.image = #imageLiteral(resourceName: "Circled Left 2")
-//        navigationItem.backBarButtonItem?.
-//        print(object["image"])
-        
-        
+
         
         
         //&extractor=ArticleExtractor"
@@ -75,10 +73,6 @@ class DetailViewController: UIViewController {
  
          */
         
-//        let myUrl = NSURL (string: object["url"]!)
-//        let requestObj = URLRequest(url: myUrl as! URL)
-//        detailArticleWebView.loadRequest(requestObj)
-        //detailArticleSource.text = object["source"]
         let imageString = object["image"]
         
         if imageString != nil  {
@@ -89,99 +83,42 @@ class DetailViewController: UIViewController {
                 } else {
                     let image = UIImage(named: "imageNotFound")
                     detailArticleImage.image = image
-                }
-            } 
-            // Need to center vertically
-            
-//              let imageCenter = cell.frame.height / 2
-//            
-//            
-//               cellImg.image = image
-     
-            
-        
-
+            }
         }
+    }
         
-        
-      
-        
-        //print(content.objects)
-        
-        //print("objects in dvc: \(objects)")
-        
-        //let object = objects[indexPath.row]
-
         
         detailArticleTitle.text = object["title"]
-       // detailArticleSource.text = object["source"]
         detailArticleAuthor.text = "By " + object["author"]!
-        //detailArticleDescription.text = object["description"]
         detailArticleDate.text = object["date"]
-        //let x = NSDate()
     
-        if let unwrappedDate = object["date"] {
+        if let unwrappedDate = object["date"]
+        {
             do {
             let formattedDate = try DateInRegion(string: unwrappedDate, format: .iso8601(options: .withInternetDateTime), fromRegion: nil)
             print("formatted date: \(formattedDate)")
             detailArticleDate.text = String(describing: formattedDate)
             } catch {
                 print("This is the catch required by DateInRegion, meaning the date couldn't be formatted correctly.")
+                }
             }
-        }
         
-        //print("x: \(object["url"])")
-
-        //detailArticleImage.image = object["image"]
-
-        // Do any additional setup after loading the view.
-    }
+        }
 
     func switchToWeb() {
         performSegue(withIdentifier: "toWeb", sender: nil)
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == "toWeb"
         {
-            print ("seg id is toWeb")
-            let objectX = object["url"]
-            print(object["url"])
+            let urlToLoad = object["url"]
                 if let destination = segue.destination as? WebViewController
                 {
-                    destination.object = objectX!
-                    print("jjj: \(objectX)")
+                    destination.object = urlToLoad!
                 }
-                
-                //            if let destination = segue.destinationViewController as? NewsTableViewController {
-                //                destination.selectedSources = selectedSources
-                //            }
-                
-                // UINavigationController).topViewController as? DetailViewController
-                // print((segue.destinationViewController as! UINavigationController).topViewController)
-                //controller.detailItem = object
-                //controller.navigationItem.hidesBackButton = false
-                //}
         }
-            
+        
     }
-  
-
 }

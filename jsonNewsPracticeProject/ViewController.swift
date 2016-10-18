@@ -31,7 +31,23 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-
+extension Array where Element:Equatable
+{
+    func removeDuplicates() -> [Element]
+    {
+        var result = [Element]()
+        
+        for value in self
+        {
+            if result.contains(value) == false
+            {
+                result.append(value)
+            }
+        }
+        
+        return result
+    }
+}
 
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -44,7 +60,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
   
     let sources = myJSON()
-    var selectedSources = [String]()
+    var selectedSources = UserDefaults.standard.stringArray(forKey: "SavedStringArray") ?? [String]()
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
@@ -55,7 +71,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        
         let cell = collectionView.cellForItem(at: indexPath)! as! NewsCell
-        cell.newsLogo.layer.borderColor = UIColor.red.cgColor
         cell.checkBox.onAnimationType = BEMAnimationType.bounce
         cell.checkBox.isHidden = false
         cell.checkBox.setOn(true, animated: true)
@@ -63,15 +78,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         
         let object = sources.objects[(indexPath as NSIndexPath).row]
-            
+        
         let newSource = object["id"]
+        
         selectedSources.append(newSource!)
         print("Selected sources: \(selectedSources)")
-    
+        
+        selectedSources = selectedSources.removeDuplicates()
+
+        UserDefaults.standard.set(selectedSources, forKey: "SavedStringArray")
+        UserDefaults.standard.synchronize()
      
     }
     
-    // Resets borderColor to its default, unselected state.
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)! as! NewsCell
         
@@ -85,6 +104,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         let indexToRemove = selectedSources.index(of: sourceName!)
         selectedSources.remove(at: indexToRemove!)
+        
+        UserDefaults.standard.set(selectedSources, forKey: "SavedStringArray")
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -98,35 +119,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         let imageView = cell.viewWithTag(1) as! UIImageView
         cell.newsDescription.text = object["description"]
-        //cell.backgroundColor = UIColor.blue
-    
         
         imageView.sd_setImage(with: URL(string: imageString!))
        
-        //cell.backgroundColor = FlatWhite()
         cell.backgroundColor = UIColor.white
-        
-//        let image = imageView.image
-//        let averageImageColor = UIColor(averageColorFrom: image)
-//        cell.backgroundColor = ComplementaryFlatColorOf(averageImageColor!)
-        
-//        if let image = imageView.image {
-//        
-//        imageView.frame = CGRect(x: 0.0, y: 0.0, width: image.size.width, height: image.size.height)
-//        }
-        
-//        DispatchQueue.global(qos: .background).async { [weak self]
-//            () -> Void in self?.sources.parseData("https://newsapi.org/v1/sources?language=en")
-//            // Background thread - netowrk
-//            
-//            DispatchQueue.main.async(execute: {
-//                // UI Updates - touch the ui
-//                self?.collectionView.reloadData()
-//            })
-//        }
-
-    
-        
         cell.newsName.text = object["name"]
         cell.layer.cornerRadius = 50
         cell.newsLogo.clipsToBounds = true
@@ -136,6 +132,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
 
+
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,75 +142,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView.backgroundColor = FlatGray()
         self.setStatusBarStyle(.default)
         
-        let defaults = UserDefaults.standard
-        let myArray = defaults.stringArray(forKey: "SavedStringArray") ?? [String]()
-        print("nsuserdefaults of selected sources: \(myArray)")
+        print("nsuserdefaults of selected sources: \(selectedSources)")
         
-        //self.setStatusBarStyle(<#T##statusBarStyle: UIStatusBarStyle##UIStatusBarStyle#>)
-
- 
-        
-//        DispatchQueue.global(qos: .userInitiated).async {
-//            print("This is run on the background queue abcdef")
-            sources.objects = sources.parseData("https://newsapi.org/v1/sources?language=en")
-            //print(self.sources.objects)
-            
-            
-//            DispatchQueue.main.async {
-//                print("This is run on the main queue, after the previous code in outer block")
-//                self.collectionView.reloadData()
-//            }
-//        }
-        
- 
-     
-     
-
-        // Detects first launch.
-//          let launchedBefore = UserDefaults.standardUserDefaults().boolForKey("launchedBefore")
-//          if launchedBefore  {
-//              print("Not first launch.")
-//              performSegue(withIdentifier: "toTable", sender: self)
-//           
-//            // grand central dispatch
-//              //dispatch_async(dispatch_get_main_queue()){
-//        
-//                  //self.performSegueWithIdentifier("toTable", sender: self)
-//        
-//              //}
-//          }
-//          else {
-//              print("First launch, setting NSUserDefault.")
-//              UserDefaults.standardUserDefaults().setBool(true, forKey: "launchedBefore")
-//        }
-//   
-        //
-//        
-//        func indexPathsForSelectedItems() -> [NSIndexPath]? {
-//            selectedSources.append(String(NSIndexPath))
-//            
-//            print("Selected sources: \(selectedSources)")
-//            return [NSIndexPath]?
-//        }
-//    
-
-        
-           }
+                    sources.objects = sources.parseData("https://newsapi.org/v1/sources?language=en")
+    }
 
 
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        //let array = ["horse", "cow", "camel", "sheep", "goat"]
-        
-        let defaults = UserDefaults.standard
-        defaults.set(selectedSources, forKey: "SavedStringArray")
         
         if segue.identifier == "toTable"
         {
@@ -225,7 +169,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func buttonAction(_ sender: UIBarButtonItem)
     {
-        print("Button tapped")
+        checkForSubscriptions()
+        performSegue(withIdentifier: "toTable", sender: nil)
+    }
+    
+    
+    func checkForSubscriptions()
+    {
         if selectedSources.count < 1
         {
             print("You must select atleast 1 source.")
@@ -233,7 +183,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
-        performSegue(withIdentifier: "toTable", sender: nil)
     }
 }
 
