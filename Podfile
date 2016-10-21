@@ -11,6 +11,7 @@ target 'jsonNewsPracticeProject' do
 	pod ‘ChameleonFramework/Swift’, :git => 'https://github.com/ViccAlexander/Chameleon.git', :branch => ’swift3’
 	pod ‘BEMCheckBox’
 	pod ’Spring’, :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
+	pod ‘NYAlertViewController’
   # Pods for jsonNewsPracticeProject
 
 end

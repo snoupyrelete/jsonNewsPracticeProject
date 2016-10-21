@@ -22,9 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        UIBarButtonItem.appearance().
         Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.flatSkyBlueColorDark(), with: UIContentStyle.contrast)
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController: NewsTableViewController = storyboard.instantiateViewController(withIdentifier: "NewsTableViewController") as! NewsTableViewController
-        
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let viewController: NewsTableViewController = storyboard.instantiateViewController(withIdentifier: "NewsTableViewController") as! NewsTableViewController
+//        
         
         // Then push that view controller onto the navigation stack
         //let rootViewController = self.window?.rootViewController as! UICollectionViewController
@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Not first launch.")
 
             DispatchQueue.main.async() {
-                storyboard.instantiateViewController(withIdentifier: "NewsTableViewController")
+                //storyboard.instantiateViewController(withIdentifier: "NewsTableViewController")
                 //rootViewController.pushViewController(viewController, animated: true)
 
             }

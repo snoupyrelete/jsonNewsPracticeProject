@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftDate
+import ChameleonFramework
 
 class DetailViewController: UIViewController {
 
@@ -31,6 +32,7 @@ class DetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         navigationController!.isToolbarHidden = true
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
     }
 
     
@@ -39,7 +41,10 @@ class DetailViewController: UIViewController {
     {
         super.viewDidLoad()
      
+       
+        #imageLiteral(resourceName: "webButton").draw(in: webButton.bounds)
 
+        print("ob author: \(object["author"])")
         webButton.layer.cornerRadius = 6
         print("Detail view did load")
         
@@ -58,8 +63,8 @@ class DetailViewController: UIViewController {
         }
 
         //Icon from icons8 - 32 png
-        navigationItem.title = "test!"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Domain"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(switchToWeb))
+        //navigationItem.title = nil
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Domain"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(switchToWeb))
 
         
         
@@ -89,7 +94,11 @@ class DetailViewController: UIViewController {
         
         
         detailArticleTitle.text = object["title"]
-        detailArticleAuthor.text = "By " + object["author"]!
+        if object["author"]!.isEmpty {
+            detailArticleAuthor.text = ""
+        } else {
+            detailArticleAuthor.text = "By " + object["author"]!
+        }
         detailArticleDate.text = object["date"]
     
         if let unwrappedDate = object["date"]
@@ -116,7 +125,7 @@ class DetailViewController: UIViewController {
             let urlToLoad = object["url"]
                 if let destination = segue.destination as? WebViewController
                 {
-                    destination.object = urlToLoad!
+                    destination.url = urlToLoad!
                 }
         }
         

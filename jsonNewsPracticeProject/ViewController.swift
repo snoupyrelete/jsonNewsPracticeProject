@@ -10,6 +10,7 @@ import UIKit
 import CoreGraphics
 import ChameleonFramework
 import BEMCheckBox
+import NYAlertViewController
 
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
@@ -101,6 +102,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         cell.checkBox.offAnimationType = BEMAnimationType.bounce
         cell.checkBox.setOn(false, animated: true)
         cell.newsDescription.isHidden = false
+        //cell.layer.shadowRadius = cell.frame.height
+        
         
         let indexToRemove = selectedSources.index(of: sourceName!)
         selectedSources.remove(at: indexToRemove!)
@@ -135,9 +138,26 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
     
 
+    override func viewWillAppear(_ animated: Bool) {
+        
+        let navigationBar = UINavigationBar(frame: CGRect(origin: CGPoint(x:0, y: 0), size: CGSize(width: self.view.frame.size.width, height: 60)))
     
+        let rightButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(_:)))
+        let navigationItem = UINavigationItem()
+       
+        navigationItem.rightBarButtonItem = rightButton
+        navigationItem.title = "Subscriptions"
+        
+        navigationBar.items = [navigationItem]
+        view.addSubview(navigationBar)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //reset nsuserdefaults
+//        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+//        UserDefaults.standard.synchronize()
+        
         self.collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = FlatGray()
         self.setStatusBarStyle(.default)
@@ -178,10 +198,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     {
         if selectedSources.count < 1
         {
-            print("You must select atleast 1 source.")
-            let alert = UIAlertController(title: "Warning:", message: "Please subscribe to atleast 1 source.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+//            print("You must select atleast 1 source.")
+//            let alert = UIAlertController(title: "Warning:", message: "Please subscribe to atleast 1 source.", preferredStyle: UIAlertControllerStyle.alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+            let avc = NYAlertViewController.alert(withTitle: "Dylan's News App", message: "You must subscribe to atleast 1 source.")
+            avc!.swipeDismissalGestureEnabled = true
+            avc!.backgroundTapDismissalGestureEnabled = true
+            let cancelAction = NYAlertAction(title: "OK", style: .cancel, handler: { (action:NYAlertAction?) -> Void in self.dismiss(animated: true, completion: nil)
+                })
+            avc!.addAction(cancelAction)
+
+            
+            self.present(avc!, animated: true, completion: nil)
+
         }
     }
 }

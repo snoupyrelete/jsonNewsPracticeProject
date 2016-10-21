@@ -39,10 +39,14 @@ class NewsTableViewController: UITableViewController
     {
         super.viewDidLoad()
         
+        
+        let testNavBarHeight = self.navigationController?.navigationBar.frame.height
+        
+        print("height::: \(testNavBarHeight)")
         let defaults = UserDefaults.standard
         let selectedSources = defaults.stringArray(forKey: "SavedStringArray") ?? [String]()
 
-        let image = UIImage(named: "Google News-2")
+        let image = UIImage(named: "smallNewsAppIcon")
         navigationItem.titleView = UIImageView(image: image)
         
         open.target = self.revealViewController()
@@ -67,6 +71,7 @@ class NewsTableViewController: UITableViewController
   
     override func viewWillAppear(_ animated: Bool) {
         //navigationController?.isNavigationBarHidden = false
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -85,37 +90,27 @@ class NewsTableViewController: UITableViewController
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //TODO: if there is no image received let cell = another cell class (as! otherCell) so that it loads a view without an image, with title and description scaled accordingly. xib files?
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewNewsCell
-
-
-        let cellImg : UIImageView = UIImageView(frame: CGRect(x: 5, y: 5, width: 90, height: 90))
-
-        cellImg.tag = 1
         let object = articles.objects[(indexPath as NSIndexPath).row]
        // print("objecT: \(object)")
        
         cell.articleTitle.text = object["title"]
+ 
+//        if let description = object["description"] {
+//        let shortDesc = description.substring(to: description.index(description.startIndex, offsetBy: 101))
+//        cell.articleDescription.text = shortDesc
+//
+//        }
         
-       // print("object[\"title\"]: \(object["title"])")
-
         cell.articleDescription.text = object["description"]
-    
-        // why can't this be cell.articleImage.image = x ??
+
         
         // **** problem with http instead of https! Could do AllowsArbitraryLoads but bad for secuirty reasons, some sources like Hacker News don't have specified urls for image hosting, whereas Associated press does, so it can be excused in the info.plist. (binaryapi.ap.org)
         let imageString: String? = object["image"]
 
-        //let imageView = cellImg.viewWithTag(2) as! UIImageView
-        cellImg.contentMode = .scaleAspectFit
-            //.UIViewContentMode = UIViewContentMode.scaleAspectFit
+        cell.articleImage.sd_setImage(with: URL(string: imageString!), placeholderImage: UIImage(named: "imageNotFound"))
 
-        
-        
-        //placeholder necessary to load correct images in cells.
-        cellImg.sd_setImage(with: URL(string: imageString!), placeholderImage: UIImage(named: "imageNotFound"))
-
-        cellImg.clipsToBounds = true
-        cell.addSubview(cellImg)
         cell.backgroundColor = FlatWhite()
+        cell.accessoryType = UITableViewCellAccessoryType.none
         
         return cell
     

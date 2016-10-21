@@ -11,7 +11,7 @@ import WebKit
 class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
 
 
-    var object = String()
+    var url = String()
     
     var webView: WKWebView!
     
@@ -46,7 +46,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         navigationController!.isToolbarHidden = false
         
         navigationController!.toolbar.setItems(toolbarItems, animated: true)
-        let myURL = URL(string: object)
+        let myURL = URL(string: url)
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
         
@@ -72,7 +72,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     func shareButtonTapped() {
         
-        let sentFrom = "\n--Sent from Dylan's JSON News app."
+        let sentFrom = "\n--Sent from Daily Read iOS app."
         let vc = UIActivityViewController(activityItems: [webView.url!, sentFrom], applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
                 present(vc, animated: true)

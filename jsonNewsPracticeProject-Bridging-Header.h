@@ -4,3 +4,4 @@
 
 #import "SDWebImage/UIImageView+WebCache.h"
 #import "SWRevealViewController.h"
+#import "NYAlertViewController/NYAlertViewController.h"
